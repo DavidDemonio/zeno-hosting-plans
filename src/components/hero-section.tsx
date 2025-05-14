@@ -35,13 +35,14 @@ export function HeroSection({ language }: HeroSectionProps) {
       <div className="absolute inset-0 bg-gradient-radial"></div>
       
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <div className="stagger-animation stagger-1">
+        <div className="flex flex-col items-center justify-center stagger-animation stagger-1">
           <Logo size="lg" className="mx-auto mb-8 glow-animation" />
         </div>
         
         <div className="overflow-hidden mb-6">
-          <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold leading-tight stagger-animation stagger-2">
-            {title} <span className="gradient-text glow-text">{highlight}</span>
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight stagger-animation stagger-2 text-center">
+            <span className="gradient-text glow-text inline-block">{highlight}</span><br />
+            <span>{title}</span>
           </h1>
         </div>
         
@@ -64,7 +65,7 @@ export function HeroSection({ language }: HeroSectionProps) {
           <Button 
             size="lg" 
             variant="outline" 
-            className="border-zinc-700 text-white hover:bg-zinc-800 transition-all group hover-lift"
+            className="border-zinc-700 text-white hover:bg-zinc-800 transition-all group hover-lift hover-button"
           >
             <span className="relative z-10 flex items-center">
               {secondaryButton}

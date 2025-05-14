@@ -53,23 +53,24 @@ const Index = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-zeno-dark relative">
+      <div className="min-h-screen flex items-center justify-center bg-zeno-dark relative overflow-hidden">
         <StarsBackground density={100} />
-        <div className="initial-animation text-center">
-          <div className="w-24 h-24 mx-auto mb-8">
+        <div className="initial-animation text-center z-10 relative">
+          <div className="w-28 h-28 mx-auto mb-8">
             <img 
               src="/lovable-uploads/29ae7a2f-8957-4abc-aa16-19ef06e4ddad.png" 
               alt="ZenoScale" 
               className="w-full h-full object-contain" 
             />
           </div>
-          <h1 className="text-4xl font-bold text-white">ZenoScale</h1>
+          <h1 className="text-5xl font-bold text-white">ZenoScale</h1>
           <div className="mt-6 flex justify-center space-x-2">
             <span className="w-2 h-2 bg-white rounded-full animate-pulse"></span>
             <span className="w-2 h-2 bg-white rounded-full animate-pulse" style={{animationDelay: '0.2s'}}></span>
             <span className="w-2 h-2 bg-white rounded-full animate-pulse" style={{animationDelay: '0.4s'}}></span>
           </div>
         </div>
+        <div className="initial-shooting-star"></div>
       </div>
     );
   }
