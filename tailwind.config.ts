@@ -56,7 +56,8 @@ export default {
 				zeno: {
 					purple: '#9b87f5',
 					blue: '#33C3F0',
-					dark: '#0f172a',
+					dark: '#070c14',
+					darker: '#050a12',
 					light: '#E5DEFF',
 				},
 				sidebar: {
@@ -147,6 +148,14 @@ export default {
 						transform: 'scale(1)',
 					},
 				},
+				'rotate-center': {
+					'0%': {
+						transform: 'rotate(0deg)',
+					},
+					'100%': {
+						transform: 'rotate(360deg)',
+					},
+				},
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
@@ -157,10 +166,11 @@ export default {
 				'glow': 'glow 3s infinite ease-in-out',
 				'gradient-shift': 'gradient-shift 8s ease infinite',
 				'twinkle': 'twinkle 4s infinite ease-in-out',
+				'rotate-center': 'rotate-center 40s linear infinite',
 			},
 			backgroundImage: {
-				'hero-pattern': 'radial-gradient(ellipse at top, rgba(51, 195, 240, 0.15), transparent), radial-gradient(ellipse at bottom, rgba(155, 135, 245, 0.15), transparent), linear-gradient(to bottom, #0f172a, #1a1f2c)',
-				'card-gradient': 'linear-gradient(to bottom right, #1a1f2c, #0f172a)',
+				'hero-pattern': 'radial-gradient(ellipse at top, rgba(51, 195, 240, 0.15), transparent), radial-gradient(ellipse at bottom, rgba(155, 135, 245, 0.15), transparent), linear-gradient(to bottom, #070c14, #0d141e)',
+				'card-gradient': 'linear-gradient(to bottom right, #0d141e, #070c14)',
 				'popular-gradient': 'linear-gradient(to right, #9b87f5, #33C3F0)',
 			},
 		}

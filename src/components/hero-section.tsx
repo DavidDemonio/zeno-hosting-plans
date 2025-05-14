@@ -1,6 +1,7 @@
 
 import { Button } from '@/components/ui/button';
 import { Logo } from '@/components/ui/logo';
+import { ArrowRight } from 'lucide-react';
 
 export function HeroSection() {
   return (
@@ -22,11 +23,26 @@ export function HeroSection() {
         </p>
         
         <div className="animate-fade-in flex flex-col sm:flex-row justify-center gap-4" style={{ animationDelay: '0.8s' }}>
-          <Button size="lg" className="bg-gradient-to-r from-zeno-purple to-zeno-blue hover:opacity-90 transition-all text-white">
-            Comenzar Ahora
+          <Button 
+            size="lg" 
+            className="bg-gradient-to-r from-zeno-purple to-zeno-blue hover:opacity-90 transition-all text-white relative overflow-hidden group"
+            onClick={() => window.location.href = "https://dash.zenoscale.es"}
+          >
+            <span className="relative z-10 flex items-center">
+              Comenzar Ahora 
+              <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </span>
+            <span className="absolute inset-0 bg-gradient-to-r from-zeno-purple to-zeno-blue opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ filter: 'brightness(1.2)' }}></span>
           </Button>
-          <Button size="lg" variant="outline" className="border-zinc-700 text-white hover:bg-zinc-800 transition-all">
-            Más Información
+          <Button 
+            size="lg" 
+            variant="outline" 
+            className="border-zinc-700 text-white hover:bg-zinc-800 transition-all group"
+          >
+            <span className="relative z-10 flex items-center">
+              Más Información
+              <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </span>
           </Button>
         </div>
         

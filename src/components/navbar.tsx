@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Logo } from '@/components/ui/logo';
 import { Button } from '@/components/ui/button';
-import { Menu } from 'lucide-react';
+import { Menu, Server, Activity, Users, MessageSquare } from 'lucide-react';
 
 export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -15,12 +15,19 @@ export function Navbar() {
             <Logo className="hover:opacity-90 transition-opacity" />
           </div>
           
-          <div className="hidden md:flex items-center space-x-8">
-            <NavLink href="#features">Características</NavLink>
-            <NavLink href="#pricing">Planes</NavLink>
-            <NavLink href="#about">Nosotros</NavLink>
-            <NavLink href="#contact">Contacto</NavLink>
-            <Button className="bg-gradient-to-r from-zeno-purple to-zeno-blue hover:opacity-90 transition-all text-white">
+          <div className="hidden md:flex items-center space-x-6">
+            <NavLink href="#features" icon={<Server className="w-4 h-4 mr-1" />}>Características</NavLink>
+            <NavLink href="#pricing" icon={<Activity className="w-4 h-4 mr-1" />}>Planes</NavLink>
+            <NavLink href="#about" icon={<Users className="w-4 h-4 mr-1" />}>Nosotros</NavLink>
+            <NavLink href="#contact" icon={<MessageSquare className="w-4 h-4 mr-1" />}>Contacto</NavLink>
+            <NavLink href="https://dash.zenoscale.es" external icon={<Server className="w-4 h-4 mr-1" />}>Acceso plataforma</NavLink>
+            <NavLink href="https://status.zenoscale.es" external icon={<Activity className="w-4 h-4 mr-1" />}>Status</NavLink>
+            <NavLink href="https://panel.zenoscale.es" external icon={<Server className="w-4 h-4 mr-1" />}>Panel</NavLink>
+            <NavLink href="https://discord.zenoscale.es" external icon={<MessageSquare className="w-4 h-4 mr-1" />}>Discord</NavLink>
+            <Button 
+              className="bg-gradient-to-r from-zeno-purple to-zeno-blue hover:opacity-90 transition-all text-white hover:glow"
+              onClick={() => window.location.href = "https://dash.zenoscale.es"}
+            >
               Comenzar
             </Button>
           </div>
@@ -42,12 +49,19 @@ export function Navbar() {
       {mobileMenuOpen && (
         <div className="md:hidden bg-zeno-dark/95 backdrop-blur-md border-t border-zinc-800 animate-fade-in">
           <div className="px-2 pt-2 pb-4 space-y-1 sm:px-3">
-            <MobileNavLink href="#features">Características</MobileNavLink>
-            <MobileNavLink href="#pricing">Planes</MobileNavLink>
-            <MobileNavLink href="#about">Nosotros</MobileNavLink>
-            <MobileNavLink href="#contact">Contacto</MobileNavLink>
+            <MobileNavLink href="#features" icon={<Server className="w-4 h-4 mr-2" />}>Características</MobileNavLink>
+            <MobileNavLink href="#pricing" icon={<Activity className="w-4 h-4 mr-2" />}>Planes</MobileNavLink>
+            <MobileNavLink href="#about" icon={<Users className="w-4 h-4 mr-2" />}>Nosotros</MobileNavLink>
+            <MobileNavLink href="#contact" icon={<MessageSquare className="w-4 h-4 mr-2" />}>Contacto</MobileNavLink>
+            <MobileNavLink href="https://dash.zenoscale.es" external icon={<Server className="w-4 h-4 mr-2" />}>Acceso plataforma</MobileNavLink>
+            <MobileNavLink href="https://status.zenoscale.es" external icon={<Activity className="w-4 h-4 mr-2" />}>Status</MobileNavLink>
+            <MobileNavLink href="https://panel.zenoscale.es" external icon={<Server className="w-4 h-4 mr-2" />}>Panel</MobileNavLink>
+            <MobileNavLink href="https://discord.zenoscale.es" external icon={<MessageSquare className="w-4 h-4 mr-2" />}>Discord</MobileNavLink>
             <div className="pt-2">
-              <Button className="w-full bg-gradient-to-r from-zeno-purple to-zeno-blue hover:opacity-90 transition-all text-white">
+              <Button 
+                className="w-full bg-gradient-to-r from-zeno-purple to-zeno-blue hover:opacity-90 transition-all text-white"
+                onClick={() => window.location.href = "https://dash.zenoscale.es"}
+              >
                 Comenzar
               </Button>
             </div>
@@ -58,23 +72,29 @@ export function Navbar() {
   );
 }
 
-function NavLink({ href, children }: { href: string; children: React.ReactNode }) {
+function NavLink({ href, children, icon, external = false }: { href: string; children: React.ReactNode; icon: React.ReactNode; external?: boolean }) {
   return (
     <a
       href={href}
-      className="text-zinc-300 hover:text-white transition-colors duration-200 text-sm font-medium"
+      className="flex items-center text-zinc-300 hover:text-white transition-colors duration-200 text-sm font-medium group"
+      target={external ? "_blank" : undefined}
+      rel={external ? "noopener noreferrer" : undefined}
     >
+      <span className="group-hover:text-zeno-purple transition-colors">{icon}</span>
       {children}
     </a>
   );
 }
 
-function MobileNavLink({ href, children }: { href: string; children: React.ReactNode }) {
+function MobileNavLink({ href, children, icon, external = false }: { href: string; children: React.ReactNode; icon: React.ReactNode; external?: boolean }) {
   return (
     <a
       href={href}
-      className="block py-2 px-3 text-base font-medium text-zinc-300 hover:text-white transition-colors duration-200"
+      className="flex items-center py-2 px-3 text-base font-medium text-zinc-300 hover:text-white transition-colors duration-200"
+      target={external ? "_blank" : undefined}
+      rel={external ? "noopener noreferrer" : undefined}
     >
+      <span className="text-zeno-purple">{icon}</span>
       {children}
     </a>
   );

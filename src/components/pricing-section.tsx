@@ -2,7 +2,14 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-import { Check } from 'lucide-react';
+import { Check, Server, Cpu, Database, HardDrive } from 'lucide-react';
+import { 
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 interface PlanProps {
   name: string;
@@ -22,6 +29,7 @@ interface PlanProps {
   };
   idealFor: string;
   perfectFor: string;
+  packName?: string;
 }
 
 const plans: PlanProps[] = [
@@ -50,8 +58,9 @@ const plans: PlanProps[] = [
   {
     name: "MiniCube",
     emoji: "🧩",
-    price: "20",
+    price: "2",
     period: "mes",
+    packName: "Starter Pack",
     specs: {
       ram: "2.0 GB",
       cpu: "1.5 vCores",
@@ -73,8 +82,9 @@ const plans: PlanProps[] = [
   {
     name: "Galaxy",
     emoji: "🌌",
-    price: "28",
+    price: "2,80",
     period: "mes",
+    packName: "Explorer Pack",
     specs: {
       ram: "3.0 GB",
       cpu: "2 vCores",
@@ -97,8 +107,9 @@ const plans: PlanProps[] = [
   {
     name: "Obsidian",
     emoji: "🖤",
-    price: "42",
+    price: "4,20",
     period: "mes",
+    packName: "Shadow Pack",
     popular: true,
     specs: {
       ram: "4.0 GB",
@@ -123,8 +134,9 @@ const plans: PlanProps[] = [
   {
     name: "Inferno",
     emoji: "🔥",
-    price: "56",
+    price: "5,60",
     period: "mes",
+    packName: "Blaze Pack",
     specs: {
       ram: "5.0 GB",
       cpu: "3.5 vCores",
@@ -149,8 +161,9 @@ const plans: PlanProps[] = [
   {
     name: "Storm",
     emoji: "⚡",
-    price: "70",
+    price: "7",
     period: "mes",
+    packName: "Thunder Pack",
     specs: {
       ram: "8.0 GB",
       cpu: "4 vCores",
@@ -176,8 +189,9 @@ const plans: PlanProps[] = [
   {
     name: "Dragon",
     emoji: "🐉",
-    price: "112",
+    price: "11,20",
     period: "mes",
+    packName: "Mythic Pack",
     specs: {
       ram: "10.0 GB",
       cpu: "5.5 vCores",
@@ -204,8 +218,9 @@ const plans: PlanProps[] = [
   {
     name: "Quantum",
     emoji: "⚡",
-    price: "140",
+    price: "14",
     period: "mes",
+    packName: "Apex Pack",
     specs: {
       ram: "12.0 GB",
       cpu: "6 vCores",
@@ -233,8 +248,9 @@ const plans: PlanProps[] = [
   {
     name: "Nebula",
     emoji: "🌌",
-    price: "170",
+    price: "17",
     period: "mes",
+    packName: "Cosmic Pack",
     specs: {
       ram: "16.0 GB",
       cpu: "6.5 vCores",
@@ -263,8 +279,9 @@ const plans: PlanProps[] = [
   {
     name: "Titan",
     emoji: "👑",
-    price: "210",
+    price: "21",
     period: "mes",
+    packName: "Royal Pack",
     specs: {
       ram: "20.0 GB",
       cpu: "7.5 vCores",
@@ -294,8 +311,9 @@ const plans: PlanProps[] = [
   {
     name: "ZenoScale",
     emoji: "💎",
-    price: "300",
+    price: "30",
     period: "mes",
+    packName: "Zeno Pack",
     specs: {
       ram: "29.3 GB",
       cpu: "9.5 vCores",
@@ -384,30 +402,37 @@ export function PricingSection() {
           </div>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {visiblePlans.map((plan, i) => (
-            <PlanCard 
-              key={plan.name} 
-              plan={plan} 
-              className="animate-fade-in"
-              style={{ animationDelay: `${0.1 * (i % 3)}s` }}
-            />
-          ))}
-        </div>
+        <Carousel 
+          className="w-full" 
+          opts={{
+            align: 'start',
+            loop: true
+          }}
+        >
+          <CarouselContent className="-ml-4">
+            {visiblePlans.map((plan) => (
+              <CarouselItem key={plan.name} className="pl-4 md:basis-1/2 lg:basis-1/3">
+                <PlanCard plan={plan} />
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <div className="flex justify-center mt-8">
+            <CarouselPrevious className="relative static mr-2 translate-y-0 left-0" />
+            <CarouselNext className="relative static ml-2 translate-y-0 right-0" />
+          </div>
+        </Carousel>
       </div>
     </section>
   );
 }
 
-function PlanCard({ plan, className, ...props }: { plan: PlanProps; className?: string } & React.HTMLAttributes<HTMLDivElement>) {
+function PlanCard({ plan }: { plan: PlanProps }) {
   return (
     <div 
       className={cn(
-        "flex flex-col rounded-xl overflow-hidden transition-all",
-        plan.popular ? "price-card-highlight" : "border border-zinc-800",
-        className
+        "flex flex-col rounded-xl overflow-hidden transition-all h-full",
+        plan.popular ? "price-card-highlight" : "border border-zinc-800"
       )}
-      {...props}
     >
       <div className="p-6 bg-card-gradient relative">
         {plan.popular && (
@@ -424,36 +449,55 @@ function PlanCard({ plan, className, ...props }: { plan: PlanProps; className?: 
         </div>
         
         <div className="flex items-baseline mb-6">
-          <span className="text-3xl md:text-4xl font-bold">${plan.price}</span>
+          <span className="text-3xl md:text-4xl font-bold">€{plan.price}</span>
           <span className="text-zinc-400 ml-1">/{plan.period}</span>
         </div>
         
+        {plan.packName && (
+          <div className="mb-4 text-sm bg-purple-900/30 border border-purple-700/30 rounded-md px-3 py-2 text-purple-300">
+            {plan.packName}
+          </div>
+        )}
+        
         <div className="grid grid-cols-2 gap-3 mb-6">
-          <div className="p-3 bg-zinc-800/50 rounded-lg">
-            <div className="text-sm text-zinc-400">RAM</div>
+          <div className="p-3 bg-zinc-800/50 rounded-lg group hover:bg-zinc-800/80 transition-all cursor-pointer hover:glow">
+            <div className="flex items-center gap-2">
+              <Cpu className="h-4 w-4 text-zinc-400 group-hover:text-zeno-purple transition-colors" />
+              <div className="text-sm text-zinc-400">RAM</div>
+            </div>
             <div className="font-semibold">{plan.specs.ram}</div>
           </div>
-          <div className="p-3 bg-zinc-800/50 rounded-lg">
-            <div className="text-sm text-zinc-400">CPU</div>
+          <div className="p-3 bg-zinc-800/50 rounded-lg group hover:bg-zinc-800/80 transition-all cursor-pointer hover:glow">
+            <div className="flex items-center gap-2">
+              <Cpu className="h-4 w-4 text-zinc-400 group-hover:text-zeno-purple transition-colors" />
+              <div className="text-sm text-zinc-400">CPU</div>
+            </div>
             <div className="font-semibold">{plan.specs.cpu}</div>
           </div>
-          <div className="p-3 bg-zinc-800/50 rounded-lg">
-            <div className="text-sm text-zinc-400">Almacenamiento</div>
+          <div className="p-3 bg-zinc-800/50 rounded-lg group hover:bg-zinc-800/80 transition-all cursor-pointer hover:glow">
+            <div className="flex items-center gap-2">
+              <HardDrive className="h-4 w-4 text-zinc-400 group-hover:text-zeno-purple transition-colors" />
+              <div className="text-sm text-zinc-400">Almacenamiento</div>
+            </div>
             <div className="font-semibold">{plan.specs.storage}</div>
           </div>
-          <div className="p-3 bg-zinc-800/50 rounded-lg">
-            <div className="text-sm text-zinc-400">Bases de datos</div>
+          <div className="p-3 bg-zinc-800/50 rounded-lg group hover:bg-zinc-800/80 transition-all cursor-pointer hover:glow">
+            <div className="flex items-center gap-2">
+              <Database className="h-4 w-4 text-zinc-400 group-hover:text-zeno-purple transition-colors" />
+              <div className="text-sm text-zinc-400">Bases de datos</div>
+            </div>
             <div className="font-semibold">{plan.specs.databases}</div>
           </div>
         </div>
         
         <Button 
           className={cn(
-            "w-full", 
+            "w-full hover:glow", 
             plan.popular 
               ? "bg-gradient-to-r from-zeno-purple to-zeno-blue hover:opacity-90" 
               : "bg-zinc-800 hover:bg-zinc-700"
           )}
+          onClick={() => window.location.href = "https://dash.zenoscale.es"}
         >
           Crear servidor
         </Button>
