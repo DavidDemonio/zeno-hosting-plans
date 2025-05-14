@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -10,6 +9,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import { AnimatePresence, motion } from 'framer-motion';
 
 interface PlanProps {
   name: string;
@@ -374,22 +374,25 @@ export function PricingSection({ language }: PricingSectionProps) {
     }
   };
 
+  // Asegurarse de que language sea 'es' o 'en', con 'es' como valor predeterminado
+  const validLanguage = language && (language === 'en' || language === 'es') ? language : 'es';
+
   const { title, highlight, description, filters, createBtn, idealFor, perfectFor } = 
-    content[language as keyof typeof content];
+    content[validLanguage];
 
   return (
     <section id="pricing" className="py-16 lg:py-20 relative">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12 scroll-reveal">
+        <div className="text-center mb-10 scroll-reveal">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            {title} <span className="gradient-text">{highlight}</span>
+            {title} <span className="gradient-text glow-text">{highlight}</span>
           </h2>
           <p className="mx-auto max-w-2xl text-zinc-300">
             {description}
           </p>
           
           <div className="flex justify-center mt-6">
-            <div className="inline-flex p-1 bg-zinc-800/50 rounded-lg">
+            <div className="inline-flex p-1 bg-zinc-800/50 rounded-lg backdrop-blur-sm">
               <button 
                 onClick={() => setFilter('all')}
                 className={cn(
@@ -427,25 +430,52 @@ export function PricingSection({ language }: PricingSectionProps) {
           </div>
         </div>
         
-        <Carousel 
-          className="w-full scroll-reveal" 
-          opts={{
-            align: 'start',
-            loop: true
-          }}
-        >
-          <CarouselContent className="-ml-4">
-            {visiblePlans.map((plan) => (
-              <CarouselItem key={plan.name} className="pl-4 md:basis-1/2 lg:basis-1/3">
-                <PlanCard plan={plan} language={language} idealForLabel={idealFor} perfectForLabel={perfectFor} createBtnText={createBtn} />
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          <div className="flex justify-center mt-6">
-            <CarouselPrevious className="relative static mr-2 translate-y-0 left-0" />
-            <CarouselNext className="relative static ml-2 translate-y-0 right-0" />
-          </div>
-        </Carousel>
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={filter}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3 }}
+          >
+            <Carousel 
+              className="w-full scroll-reveal" 
+              opts={{
+                align: 'start',
+                loop: true
+              }}
+            >
+              <CarouselContent className="-ml-4">
+                {visiblePlans.map((plan, index) => (
+                  <CarouselItem key={plan.name} className="pl-4 md:basis-1/2 lg:basis-1/3">
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ 
+                        opacity: 1, 
+                        y: 0,
+                        transition: {
+                          delay: index * 0.1
+                        }
+                      }}
+                    >
+                      <PlanCard 
+                        plan={plan} 
+                        language={validLanguage} 
+                        idealForLabel={idealFor} 
+                        perfectForLabel={perfectFor} 
+                        createBtnText={createBtn} 
+                      />
+                    </motion.div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <div className="flex justify-center mt-6">
+                <CarouselPrevious className="relative static mr-2 translate-y-0 left-0" />
+                <CarouselNext className="relative static ml-2 translate-y-0 right-0" />
+              </div>
+            </Carousel>
+          </motion.div>
+        </AnimatePresence>
       </div>
     </section>
   );
@@ -517,10 +547,10 @@ function PlanCard({ plan, language, idealForLabel, perfectForLabel, createBtnTex
         
         <Button 
           className={cn(
-            "w-full hover:glow", 
+            "w-full transition-all hover-button", 
             plan.popular 
-              ? "bg-gradient-to-r from-zeno-purple to-zeno-blue hover:opacity-90" 
-              : "bg-zinc-800 hover:bg-zinc-700"
+              ? "bg-gradient-to-r from-zeno-purple to-zeno-blue hover:glow hover:brightness-110" 
+              : "bg-zinc-800 hover:bg-zinc-700 hover:glow"
           )}
           onClick={() => window.location.href = "https://dash.zenoscale.es"}
         >

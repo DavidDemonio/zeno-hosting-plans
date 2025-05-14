@@ -65,13 +65,16 @@ export function Footer({ language }: FooterProps) {
     }
   };
 
+  // Asegurarse de que language sea 'es' o 'en', con 'es' como valor predeterminado
+  const validLanguage = language && (language === 'en' || language === 'es') ? language : 'es';
+  
   const { 
     description, services, serviceLinks, company, companyLinks, 
     legal, legalLinks, copyright, privacyPolicy, terms 
-  } = content[language as keyof typeof content];
+  } = content[validLanguage];
 
   return (
-    <footer className="bg-zinc-900/50 border-t border-zinc-800 pt-12 pb-6">
+    <footer className="bg-zinc-800/90 border-t border-zinc-700 pt-12 pb-6 backdrop-blur-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-12">
           <div className="col-span-1 md:col-span-1">
@@ -129,7 +132,7 @@ export function Footer({ language }: FooterProps) {
           </div>
         </div>
 
-        <div className="mt-12 pt-6 border-t border-zinc-800 flex flex-col md:flex-row justify-between items-center">
+        <div className="mt-12 pt-6 border-t border-zinc-700 flex flex-col md:flex-row justify-between items-center">
           <p className="text-zinc-500 text-sm">
             &copy; {currentYear} ZenoScale. {copyright}
           </p>
@@ -162,7 +165,7 @@ function SocialLink({ href, label, children }: { href: string; label: string; ch
     <a 
       href={href} 
       aria-label={label}
-      className="text-zinc-400 hover:text-white transition-colors p-2 hover:bg-zinc-800 rounded-full hover:glow"
+      className="text-zinc-400 hover:text-white transition-all p-2 hover:bg-zinc-700 rounded-full hover:glow"
     >
       {children}
     </a>
