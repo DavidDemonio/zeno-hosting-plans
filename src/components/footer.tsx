@@ -1,21 +1,86 @@
 
 import { Logo } from '@/components/ui/logo';
 
-export function Footer() {
+interface FooterProps {
+  language: string;
+}
+
+export function Footer({ language }: FooterProps) {
   const currentYear = new Date().getFullYear();
+
+  const content = {
+    es: {
+      description: "Soluciones de alojamiento profesional para tus aplicaciones y juegos.",
+      services: "Servicios",
+      serviceLinks: [
+        "Minecraft Hosting",
+        "VPS Hosting",
+        "Servidores dedicados",
+        "Discord Bot Hosting"
+      ],
+      company: "Empresa",
+      companyLinks: [
+        "Sobre nosotros",
+        "Contacto",
+        "Panel",
+        "Partners"
+      ],
+      legal: "Legal",
+      legalLinks: [
+        "Política de Privacidad",
+        "Términos de Servicio",
+        "Reembolsos",
+        "DMCA"
+      ],
+      copyright: "Todos los derechos reservados.",
+      privacyPolicy: "Política de Privacidad",
+      terms: "Términos de Servicio"
+    },
+    en: {
+      description: "Professional hosting solutions for your applications and games.",
+      services: "Services",
+      serviceLinks: [
+        "Minecraft Hosting",
+        "VPS Hosting",
+        "Dedicated Servers",
+        "Discord Bot Hosting"
+      ],
+      company: "Company",
+      companyLinks: [
+        "About Us",
+        "Contact",
+        "Panel",
+        "Partners"
+      ],
+      legal: "Legal",
+      legalLinks: [
+        "Privacy Policy",
+        "Terms of Service",
+        "Refunds",
+        "DMCA"
+      ],
+      copyright: "All rights reserved.",
+      privacyPolicy: "Privacy Policy",
+      terms: "Terms of Service"
+    }
+  };
+
+  const { 
+    description, services, serviceLinks, company, companyLinks, 
+    legal, legalLinks, copyright, privacyPolicy, terms 
+  } = content[language as keyof typeof content];
 
   return (
     <footer className="bg-zinc-900/50 border-t border-zinc-800 pt-12 pb-6">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-12">
           <div className="col-span-1 md:col-span-1">
-            <Logo className="mb-4" />
+            <Logo className="mb-4 hover-lift" />
             <p className="text-zinc-400 text-sm mb-4">
-              Soluciones de alojamiento profesional
-              para tus aplicaciones y juegos.
+              {description}
             </p>
             <div className="flex space-x-4">
-              <SocialLink href="#" label="Discord">
+              <SocialLink href="https://discord.zenoscale.es" label="Discord">
                 <DiscordIcon />
               </SocialLink>
               <SocialLink href="#" label="Twitter">
@@ -30,53 +95,50 @@ export function Footer() {
             </div>
           </div>
 
-          <div>
+          <div className="scroll-reveal" style={{ transitionDelay: '0.1s' }}>
             <h3 className="text-sm font-semibold uppercase tracking-wider text-zinc-400 mb-4">
-              Servicios
+              {services}
             </h3>
             <ul className="space-y-3">
-              <FooterLink href="#">Minecraft Hosting</FooterLink>
-              <FooterLink href="#">VPS Hosting</FooterLink>
-              <FooterLink href="#">Servidores dedicados</FooterLink>
-              <FooterLink href="#">Discord Bot Hosting</FooterLink>
+              {serviceLinks.map((link, index) => (
+                <FooterLink key={index} href="#">{link}</FooterLink>
+              ))}
             </ul>
           </div>
 
-          <div>
+          <div className="scroll-reveal" style={{ transitionDelay: '0.2s' }}>
             <h3 className="text-sm font-semibold uppercase tracking-wider text-zinc-400 mb-4">
-              Empresa
+              {company}
             </h3>
             <ul className="space-y-3">
-              <FooterLink href="#">Sobre nosotros</FooterLink>
-              <FooterLink href="#">Contacto</FooterLink>
-              <FooterLink href="#">Panel</FooterLink>
-              <FooterLink href="#">Partners</FooterLink>
+              {companyLinks.map((link, index) => (
+                <FooterLink key={index} href="#">{link}</FooterLink>
+              ))}
             </ul>
           </div>
 
-          <div>
+          <div className="scroll-reveal" style={{ transitionDelay: '0.3s' }}>
             <h3 className="text-sm font-semibold uppercase tracking-wider text-zinc-400 mb-4">
-              Legal
+              {legal}
             </h3>
             <ul className="space-y-3">
-              <FooterLink href="#">Política de Privacidad</FooterLink>
-              <FooterLink href="#">Términos de Servicio</FooterLink>
-              <FooterLink href="#">Reembolsos</FooterLink>
-              <FooterLink href="#">DMCA</FooterLink>
+              {legalLinks.map((link, index) => (
+                <FooterLink key={index} href="#">{link}</FooterLink>
+              ))}
             </ul>
           </div>
         </div>
 
         <div className="mt-12 pt-6 border-t border-zinc-800 flex flex-col md:flex-row justify-between items-center">
           <p className="text-zinc-500 text-sm">
-            &copy; {currentYear} ZenoScale. Todos los derechos reservados.
+            &copy; {currentYear} ZenoScale. {copyright}
           </p>
           <div className="mt-4 md:mt-0 flex space-x-4">
-            <a href="#" className="text-zinc-500 hover:text-zinc-400 text-xs">
-              Política de Privacidad
+            <a href="#" className="text-zinc-500 hover:text-zinc-400 text-xs hover-button">
+              {privacyPolicy}
             </a>
-            <a href="#" className="text-zinc-500 hover:text-zinc-400 text-xs">
-              Términos de Servicio
+            <a href="#" className="text-zinc-500 hover:text-zinc-400 text-xs hover-button">
+              {terms}
             </a>
           </div>
         </div>
@@ -88,7 +150,7 @@ export function Footer() {
 function FooterLink({ href, children }: { href: string; children: React.ReactNode }) {
   return (
     <li>
-      <a href={href} className="text-zinc-400 hover:text-white transition-colors text-sm">
+      <a href={href} className="text-zinc-400 hover:text-white transition-colors text-sm hover-button">
         {children}
       </a>
     </li>
@@ -100,7 +162,7 @@ function SocialLink({ href, label, children }: { href: string; label: string; ch
     <a 
       href={href} 
       aria-label={label}
-      className="text-zinc-400 hover:text-white transition-colors p-2 hover:bg-zinc-800 rounded-full"
+      className="text-zinc-400 hover:text-white transition-colors p-2 hover:bg-zinc-800 rounded-full hover:glow"
     >
       {children}
     </a>

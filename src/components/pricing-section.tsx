@@ -29,7 +29,6 @@ interface PlanProps {
   };
   idealFor: string;
   perfectFor: string;
-  packName?: string;
 }
 
 const plans: PlanProps[] = [
@@ -60,7 +59,6 @@ const plans: PlanProps[] = [
     emoji: "🧩",
     price: "2",
     period: "mes",
-    packName: "Starter Pack",
     specs: {
       ram: "2.0 GB",
       cpu: "1.5 vCores",
@@ -84,7 +82,6 @@ const plans: PlanProps[] = [
     emoji: "🌌",
     price: "2,80",
     period: "mes",
-    packName: "Explorer Pack",
     specs: {
       ram: "3.0 GB",
       cpu: "2 vCores",
@@ -109,7 +106,6 @@ const plans: PlanProps[] = [
     emoji: "🖤",
     price: "4,20",
     period: "mes",
-    packName: "Shadow Pack",
     popular: true,
     specs: {
       ram: "4.0 GB",
@@ -136,7 +132,6 @@ const plans: PlanProps[] = [
     emoji: "🔥",
     price: "5,60",
     period: "mes",
-    packName: "Blaze Pack",
     specs: {
       ram: "5.0 GB",
       cpu: "3.5 vCores",
@@ -163,7 +158,6 @@ const plans: PlanProps[] = [
     emoji: "⚡",
     price: "7",
     period: "mes",
-    packName: "Thunder Pack",
     specs: {
       ram: "8.0 GB",
       cpu: "4 vCores",
@@ -191,7 +185,6 @@ const plans: PlanProps[] = [
     emoji: "🐉",
     price: "11,20",
     period: "mes",
-    packName: "Mythic Pack",
     specs: {
       ram: "10.0 GB",
       cpu: "5.5 vCores",
@@ -220,7 +213,6 @@ const plans: PlanProps[] = [
     emoji: "⚡",
     price: "14",
     period: "mes",
-    packName: "Apex Pack",
     specs: {
       ram: "12.0 GB",
       cpu: "6 vCores",
@@ -250,7 +242,6 @@ const plans: PlanProps[] = [
     emoji: "🌌",
     price: "17",
     period: "mes",
-    packName: "Cosmic Pack",
     specs: {
       ram: "16.0 GB",
       cpu: "6.5 vCores",
@@ -281,7 +272,6 @@ const plans: PlanProps[] = [
     emoji: "👑",
     price: "21",
     period: "mes",
-    packName: "Royal Pack",
     specs: {
       ram: "20.0 GB",
       cpu: "7.5 vCores",
@@ -313,7 +303,6 @@ const plans: PlanProps[] = [
     emoji: "💎",
     price: "30",
     period: "mes",
-    packName: "Zeno Pack",
     specs: {
       ram: "29.3 GB",
       cpu: "9.5 vCores",
@@ -343,7 +332,11 @@ const plans: PlanProps[] = [
   },
 ];
 
-export function PricingSection() {
+interface PricingSectionProps {
+  language: string;
+}
+
+export function PricingSection({ language }: PricingSectionProps) {
   const [filter, setFilter] = useState('all');
   
   const visiblePlans = filter === 'all' 
@@ -352,18 +345,50 @@ export function PricingSection() {
       ? plans.slice(0, 4) 
       : plans.slice(4);
 
+  const content = {
+    es: {
+      title: "Planes de",
+      highlight: "Hosting",
+      description: "Elige el plan que mejor se adapte a tus necesidades",
+      filters: {
+        all: "Todos",
+        basic: "Básicos",
+        premium: "Premium"
+      },
+      createBtn: "Crear servidor",
+      idealFor: "Ideal para:",
+      perfectFor: "Perfecto para:"
+    },
+    en: {
+      title: "Hosting",
+      highlight: "Plans",
+      description: "Choose the plan that best suits your needs",
+      filters: {
+        all: "All",
+        basic: "Basic",
+        premium: "Premium"
+      },
+      createBtn: "Create server",
+      idealFor: "Ideal for:",
+      perfectFor: "Perfect for:"
+    }
+  };
+
+  const { title, highlight, description, filters, createBtn, idealFor, perfectFor } = 
+    content[language as keyof typeof content];
+
   return (
-    <section id="pricing" className="py-20 lg:py-28 relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
+    <section id="pricing" className="py-16 lg:py-20 relative">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-12 scroll-reveal">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Planes de <span className="gradient-text">Hosting</span>
+            {title} <span className="gradient-text">{highlight}</span>
           </h2>
           <p className="mx-auto max-w-2xl text-zinc-300">
-            Elige el plan que mejor se adapte a tus necesidades
+            {description}
           </p>
           
-          <div className="flex justify-center mt-8">
+          <div className="flex justify-center mt-6">
             <div className="inline-flex p-1 bg-zinc-800/50 rounded-lg">
               <button 
                 onClick={() => setFilter('all')}
@@ -374,7 +399,7 @@ export function PricingSection() {
                     : "text-zinc-400 hover:text-white"
                 )}
               >
-                Todos
+                {filters.all}
               </button>
               <button 
                 onClick={() => setFilter('basic')}
@@ -385,7 +410,7 @@ export function PricingSection() {
                     : "text-zinc-400 hover:text-white"
                 )}
               >
-                Básicos
+                {filters.basic}
               </button>
               <button 
                 onClick={() => setFilter('premium')}
@@ -396,14 +421,14 @@ export function PricingSection() {
                     : "text-zinc-400 hover:text-white"
                 )}
               >
-                Premium
+                {filters.premium}
               </button>
             </div>
           </div>
         </div>
         
         <Carousel 
-          className="w-full" 
+          className="w-full scroll-reveal" 
           opts={{
             align: 'start',
             loop: true
@@ -412,11 +437,11 @@ export function PricingSection() {
           <CarouselContent className="-ml-4">
             {visiblePlans.map((plan) => (
               <CarouselItem key={plan.name} className="pl-4 md:basis-1/2 lg:basis-1/3">
-                <PlanCard plan={plan} />
+                <PlanCard plan={plan} language={language} idealForLabel={idealFor} perfectForLabel={perfectFor} createBtnText={createBtn} />
               </CarouselItem>
             ))}
           </CarouselContent>
-          <div className="flex justify-center mt-8">
+          <div className="flex justify-center mt-6">
             <CarouselPrevious className="relative static mr-2 translate-y-0 left-0" />
             <CarouselNext className="relative static ml-2 translate-y-0 right-0" />
           </div>
@@ -426,67 +451,67 @@ export function PricingSection() {
   );
 }
 
-function PlanCard({ plan }: { plan: PlanProps }) {
+function PlanCard({ plan, language, idealForLabel, perfectForLabel, createBtnText }: { 
+  plan: PlanProps; 
+  language: string;
+  idealForLabel: string;
+  perfectForLabel: string;
+  createBtnText: string;
+}) {
   return (
     <div 
       className={cn(
-        "flex flex-col rounded-xl overflow-hidden transition-all h-full",
+        "flex flex-col rounded-xl overflow-hidden transition-all h-full hover-lift",
         plan.popular ? "price-card-highlight" : "border border-zinc-800"
       )}
     >
-      <div className="p-6 bg-card-gradient relative">
+      <div className="p-5 bg-card-gradient relative">
         {plan.popular && (
           <div className="absolute top-0 right-0 bg-gradient-to-r from-zeno-purple to-zeno-blue text-white text-xs font-semibold px-3 py-1 rounded-bl-lg">
-            Popular
+            {language === 'es' ? 'Popular' : 'Popular'}
           </div>
         )}
         
-        <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center justify-between mb-3">
           <div className="flex items-center space-x-2">
             <span className="text-2xl">{plan.emoji}</span>
             <h3 className="font-bold text-xl">{plan.name}</h3>
           </div>
         </div>
         
-        <div className="flex items-baseline mb-6">
-          <span className="text-3xl md:text-4xl font-bold">€{plan.price}</span>
+        <div className="flex items-baseline mb-4">
+          <span className="text-3xl font-bold">€{plan.price}</span>
           <span className="text-zinc-400 ml-1">/{plan.period}</span>
         </div>
         
-        {plan.packName && (
-          <div className="mb-4 text-sm bg-purple-900/30 border border-purple-700/30 rounded-md px-3 py-2 text-purple-300">
-            {plan.packName}
-          </div>
-        )}
-        
-        <div className="grid grid-cols-2 gap-3 mb-6">
-          <div className="p-3 bg-zinc-800/50 rounded-lg group hover:bg-zinc-800/80 transition-all cursor-pointer hover:glow">
-            <div className="flex items-center gap-2">
-              <Cpu className="h-4 w-4 text-zinc-400 group-hover:text-zeno-purple transition-colors" />
-              <div className="text-sm text-zinc-400">RAM</div>
+        <div className="grid grid-cols-2 gap-2 mb-4">
+          <div className="p-2 bg-zinc-800/50 rounded-lg group hover:bg-zinc-800/80 transition-all cursor-pointer hover:glow">
+            <div className="flex items-center gap-1">
+              <Cpu className="h-3 w-3 text-zinc-400 group-hover:text-zeno-purple transition-colors" />
+              <div className="text-xs text-zinc-400">RAM</div>
             </div>
-            <div className="font-semibold">{plan.specs.ram}</div>
+            <div className="font-semibold text-sm">{plan.specs.ram}</div>
           </div>
-          <div className="p-3 bg-zinc-800/50 rounded-lg group hover:bg-zinc-800/80 transition-all cursor-pointer hover:glow">
-            <div className="flex items-center gap-2">
-              <Cpu className="h-4 w-4 text-zinc-400 group-hover:text-zeno-purple transition-colors" />
-              <div className="text-sm text-zinc-400">CPU</div>
+          <div className="p-2 bg-zinc-800/50 rounded-lg group hover:bg-zinc-800/80 transition-all cursor-pointer hover:glow">
+            <div className="flex items-center gap-1">
+              <Cpu className="h-3 w-3 text-zinc-400 group-hover:text-zeno-purple transition-colors" />
+              <div className="text-xs text-zinc-400">CPU</div>
             </div>
-            <div className="font-semibold">{plan.specs.cpu}</div>
+            <div className="font-semibold text-sm">{plan.specs.cpu}</div>
           </div>
-          <div className="p-3 bg-zinc-800/50 rounded-lg group hover:bg-zinc-800/80 transition-all cursor-pointer hover:glow">
-            <div className="flex items-center gap-2">
-              <HardDrive className="h-4 w-4 text-zinc-400 group-hover:text-zeno-purple transition-colors" />
-              <div className="text-sm text-zinc-400">Almacenamiento</div>
+          <div className="p-2 bg-zinc-800/50 rounded-lg group hover:bg-zinc-800/80 transition-all cursor-pointer hover:glow">
+            <div className="flex items-center gap-1">
+              <HardDrive className="h-3 w-3 text-zinc-400 group-hover:text-zeno-purple transition-colors" />
+              <div className="text-xs text-zinc-400">{language === 'es' ? 'Almacenamiento' : 'Storage'}</div>
             </div>
-            <div className="font-semibold">{plan.specs.storage}</div>
+            <div className="font-semibold text-sm">{plan.specs.storage}</div>
           </div>
-          <div className="p-3 bg-zinc-800/50 rounded-lg group hover:bg-zinc-800/80 transition-all cursor-pointer hover:glow">
-            <div className="flex items-center gap-2">
-              <Database className="h-4 w-4 text-zinc-400 group-hover:text-zeno-purple transition-colors" />
-              <div className="text-sm text-zinc-400">Bases de datos</div>
+          <div className="p-2 bg-zinc-800/50 rounded-lg group hover:bg-zinc-800/80 transition-all cursor-pointer hover:glow">
+            <div className="flex items-center gap-1">
+              <Database className="h-3 w-3 text-zinc-400 group-hover:text-zeno-purple transition-colors" />
+              <div className="text-xs text-zinc-400">{language === 'es' ? 'Bases de datos' : 'Databases'}</div>
             </div>
-            <div className="font-semibold">{plan.specs.databases}</div>
+            <div className="font-semibold text-sm">{plan.specs.databases}</div>
           </div>
         </div>
         
@@ -499,25 +524,25 @@ function PlanCard({ plan }: { plan: PlanProps }) {
           )}
           onClick={() => window.location.href = "https://dash.zenoscale.es"}
         >
-          Crear servidor
+          {createBtnText}
         </Button>
       </div>
       
-      <div className="p-6 bg-zinc-900/50 flex-grow">
-        <div className="mb-4">
-          <div className="text-sm font-medium text-zinc-400">Ideal para:</div>
-          <div>{plan.idealFor}</div>
+      <div className="p-5 bg-zinc-900/50 flex-grow">
+        <div className="mb-3">
+          <div className="text-sm font-medium text-zinc-400">{idealForLabel}</div>
+          <div className="text-sm">{plan.idealFor}</div>
         </div>
-        <div className="mb-6">
-          <div className="text-sm font-medium text-zinc-400">Perfecto para:</div>
-          <div>{plan.perfectFor}</div>
+        <div className="mb-4">
+          <div className="text-sm font-medium text-zinc-400">{perfectForLabel}</div>
+          <div className="text-sm">{plan.perfectFor}</div>
         </div>
         
-        <ul className="space-y-2">
-          {plan.features.map((feature) => (
-            <li key={feature} className="flex items-center">
-              <Check className="h-4 w-4 mr-2 text-zeno-purple" />
-              <span className="text-sm">{feature}</span>
+        <ul className="space-y-1">
+          {plan.features.slice(0, 3).map((feature) => (
+            <li key={feature} className="flex items-center text-sm">
+              <Check className="h-3 w-3 mr-2 text-zeno-purple" />
+              <span>{feature}</span>
             </li>
           ))}
         </ul>

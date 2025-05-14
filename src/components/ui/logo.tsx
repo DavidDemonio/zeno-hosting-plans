@@ -14,11 +14,21 @@ export function Logo({ className, size = 'md', textOnly = false }: LogoProps) {
     lg: 'text-3xl md:text-5xl',
   };
 
+  const logoSizes = {
+    sm: 'w-6 h-6',
+    md: 'w-8 h-8',
+    lg: 'w-10 h-10',
+  };
+
   return (
     <div className={cn('flex items-center', className)}>
       {!textOnly && (
-        <div className="mr-2 rounded-md w-8 h-8 flex items-center justify-center bg-gradient-to-br from-zeno-purple to-zeno-blue text-white font-bold text-xl">
-          Z
+        <div className={cn('mr-2', logoSizes[size])}>
+          <img 
+            src="/lovable-uploads/29ae7a2f-8957-4abc-aa16-19ef06e4ddad.png" 
+            alt="ZenoScale Logo" 
+            className="w-full h-full object-contain" 
+          />
         </div>
       )}
       <span className={cn('font-bold gradient-text', sizeClasses[size])}>

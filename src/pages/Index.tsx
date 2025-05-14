@@ -10,8 +10,15 @@ import { useEffect, useState } from "react";
 
 const Index = () => {
   const [shootingStars, setShootingStars] = useState<{ id: number, delay: number, duration: number, top: string }[]>([]);
-
+  const [loading, setLoading] = useState(true);
+  const [language, setLanguage] = useState('es');
+  
+  // Initial loading animation
   useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+    
     // Create shooting stars with random positions and timing
     const stars = Array.from({ length: 5 }, (_, i) => ({
       id: i,
@@ -21,7 +28,51 @@ const Index = () => {
     }));
     
     setShootingStars(stars);
+    
+    // Scroll animation
+    const handleScroll = () => {
+      const scrollElements = document.querySelectorAll('.scroll-reveal');
+      
+      scrollElements.forEach(element => {
+        const elementTop = element.getBoundingClientRect().top;
+        const elementBottom = element.getBoundingClientRect().bottom;
+        
+        const isVisible = (elementTop < window.innerHeight - 100) && (elementBottom > 0);
+        if (isVisible) {
+          element.classList.add('show');
+        }
+      });
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    // Trigger once on load
+    setTimeout(handleScroll, 500);
+    
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-zeno-dark relative">
+        <StarsBackground density={100} />
+        <div className="initial-animation text-center">
+          <div className="w-24 h-24 mx-auto mb-8">
+            <img 
+              src="/lovable-uploads/29ae7a2f-8957-4abc-aa16-19ef06e4ddad.png" 
+              alt="ZenoScale" 
+              className="w-full h-full object-contain" 
+            />
+          </div>
+          <h1 className="text-4xl font-bold text-white">ZenoScale</h1>
+          <div className="mt-6 flex justify-center space-x-2">
+            <span className="w-2 h-2 bg-white rounded-full animate-pulse"></span>
+            <span className="w-2 h-2 bg-white rounded-full animate-pulse" style={{animationDelay: '0.2s'}}></span>
+            <span className="w-2 h-2 bg-white rounded-full animate-pulse" style={{animationDelay: '0.4s'}}></span>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen relative">
@@ -40,14 +91,14 @@ const Index = () => {
         />
       ))}
       
-      <Navbar />
+      <Navbar language={language} setLanguage={setLanguage} />
       <main>
-        <HeroSection />
-        <FeaturesSection />
-        <PricingSection />
-        <CTASection />
+        <HeroSection language={language} />
+        <FeaturesSection language={language} />
+        <PricingSection language={language} />
+        <CTASection language={language} />
       </main>
-      <Footer />
+      <Footer language={language} />
     </div>
   );
 };

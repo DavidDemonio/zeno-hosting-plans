@@ -20,7 +20,7 @@ export function StarsBackground({ className, density = 150 }: StarsBackgroundPro
 
   useEffect(() => {
     const newStars = Array.from({ length: density }, (_, i) => {
-      const size = Math.random() * 2.5 + 0.8;
+      const size = Math.random() * 2 + 0.8; // Smaller stars
       const brightness = Math.random() * 0.7 + 0.3;
       const blinkSpeed = Math.random() * 4 + 2; // Random blink speed between 2-6s
       
@@ -38,7 +38,7 @@ export function StarsBackground({ className, density = 150 }: StarsBackgroundPro
   }, [density]);
 
   return (
-    <div className={cn('fixed inset-0 z-0 overflow-hidden pointer-events-none bg-[#070c14]', className)}>
+    <div className={cn('fixed inset-0 z-0 overflow-hidden pointer-events-none bg-gradient-to-b from-[#050a12] via-[#070c14] to-[#0a0f18]', className)}>
       {stars.map((star) => (
         <div
           key={star.id}
@@ -51,7 +51,7 @@ export function StarsBackground({ className, density = 150 }: StarsBackgroundPro
             opacity: star.brightness,
             animationDelay: `${star.delay}s`,
             animationDuration: `${star.blinkSpeed}s`,
-            boxShadow: star.size > 1.8 ? `0 0 ${star.size * 2}px rgba(255,255,255,${star.brightness * 0.5})` : 'none',
+            boxShadow: `0 0 ${star.size * 2}px rgba(255,255,255,${star.brightness * 0.5})`,
             animation: `twinkle ${star.blinkSpeed}s infinite ease-in-out`
           }}
         />

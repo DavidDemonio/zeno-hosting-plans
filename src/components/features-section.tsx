@@ -8,66 +8,137 @@ interface FeatureCardProps {
   className?: string;
 }
 
-export function FeaturesSection() {
+interface FeaturesSectionProps {
+  language: string;
+}
+
+export function FeaturesSection({ language }: FeaturesSectionProps) {
+  const content = {
+    es: {
+      title: "Características",
+      highlight: "Excepcionales",
+      description: "Todo lo que necesitas para ejecutar tus aplicaciones y juegos sin problemas",
+      features: [
+        {
+          title: "Alto rendimiento",
+          description: "Impulsado por hardware de última generación para máxima velocidad"
+        },
+        {
+          title: "Protección DDoS",
+          description: "Protección 24/7 contra ataques DDoS incluida"
+        },
+        {
+          title: "Configuración instantánea",
+          description: "Pon en marcha tu servidor en minutos"
+        },
+        {
+          title: "Acceso root completo",
+          description: "Control total sobre tu servidor virtual"
+        },
+        {
+          title: "Hardware potente",
+          description: "CPUs de última generación y SSDs NVMe"
+        },
+        {
+          title: "Panel intuitivo",
+          description: "Panel de control fácil de usar para tus juegos"
+        }
+      ]
+    },
+    en: {
+      title: "Exceptional",
+      highlight: "Features",
+      description: "Everything you need to run your applications and games smoothly",
+      features: [
+        {
+          title: "High performance",
+          description: "Powered by cutting-edge hardware for maximum speed"
+        },
+        {
+          title: "DDoS Protection",
+          description: "24/7 protection against DDoS attacks included"
+        },
+        {
+          title: "Instant Setup",
+          description: "Get your server up and running in minutes"
+        },
+        {
+          title: "Full Root Access",
+          description: "Total control over your virtual server"
+        },
+        {
+          title: "Powerful Hardware",
+          description: "Latest generation CPUs and NVMe SSDs"
+        },
+        {
+          title: "Intuitive Panel",
+          description: "Easy-to-use control panel for your games"
+        }
+      ]
+    }
+  };
+
+  const { title, highlight, description, features } = content[language as keyof typeof content];
+
   return (
     <section id="features" className="py-20 lg:py-28 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
+        <div className="text-center mb-16 scroll-reveal">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Características <span className="gradient-text">Excepcionales</span>
+            {title} <span className="gradient-text">{highlight}</span>
           </h2>
           <p className="mx-auto max-w-2xl text-zinc-300">
-            Todo lo que necesitas para ejecutar tus aplicaciones y juegos sin problemas
+            {description}
           </p>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           <FeatureCard
             icon={<RocketIcon />}
-            title="Alto rendimiento"
-            description="Impulsado por hardware de última generación para máxima velocidad"
-            className="animate-fade-in"
-            style={{ animationDelay: '0.1s' }}
+            title={features[0].title}
+            description={features[0].description}
+            className="scroll-reveal"
+            style={{ transitionDelay: '0.1s' }}
           />
           
           <FeatureCard
             icon={<ShieldIcon />}
-            title="Protección DDoS"
-            description="Protección 24/7 contra ataques DDoS incluida"
-            className="animate-fade-in"
-            style={{ animationDelay: '0.2s' }}
+            title={features[1].title}
+            description={features[1].description}
+            className="scroll-reveal"
+            style={{ transitionDelay: '0.2s' }}
           />
           
           <FeatureCard
             icon={<ClockIcon />}
-            title="Configuración instantánea"
-            description="Pon en marcha tu servidor en minutos"
-            className="animate-fade-in"
-            style={{ animationDelay: '0.3s' }}
+            title={features[2].title}
+            description={features[2].description}
+            className="scroll-reveal"
+            style={{ transitionDelay: '0.3s' }}
           />
           
           <FeatureCard
             icon={<ServerIcon />}
-            title="Acceso root completo"
-            description="Control total sobre tu servidor virtual"
-            className="animate-fade-in"
-            style={{ animationDelay: '0.4s' }}
+            title={features[3].title}
+            description={features[3].description}
+            className="scroll-reveal"
+            style={{ transitionDelay: '0.4s' }}
           />
           
           <FeatureCard
             icon={<ChipIcon />}
-            title="Hardware potente"
-            description="CPUs de última generación y SSDs NVMe"
-            className="animate-fade-in"
-            style={{ animationDelay: '0.5s' }}
+            title={features[4].title}
+            description={features[4].description}
+            className="scroll-reveal"
+            style={{ transitionDelay: '0.5s' }}
           />
           
           <FeatureCard
             icon={<GamepadIcon />}
-            title="Panel intuitivo"
-            description="Panel de control fácil de usar para tus juegos"
-            className="animate-fade-in"
-            style={{ animationDelay: '0.6s' }}
+            title={features[5].title}
+            description={features[5].description}
+            className="scroll-reveal"
+            style={{ transitionDelay: '0.6s' }}
           />
         </div>
       </div>
@@ -79,7 +150,7 @@ function FeatureCard({ icon, title, description, className, ...props }: FeatureC
   return (
     <div 
       className={cn(
-        "relative p-6 rounded-xl bg-card-gradient border border-zinc-800 hover:border-zeno-purple/50 transition-all group",
+        "relative p-6 rounded-xl bg-card-gradient border border-zinc-800 hover:border-zeno-purple/50 transition-all group hover-lift",
         className
       )}
       {...props}
