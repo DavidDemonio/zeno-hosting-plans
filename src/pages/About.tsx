@@ -1,4 +1,3 @@
-
 import { StarsBackground } from "@/components/ui/stars-background";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
@@ -22,7 +21,7 @@ const About = () => {
       vision: "Nuestra visión",
       visionText: "Convertirnos en el proveedor de hosting preferido para clientes que valoran la calidad, la innovación y el servicio personalizado.",
       history: "Nuestra historia",
-      historyText: "Fundada en 2023, ZenoScale nació de la pasión por la tecnología y la necesidad de ofrecer servicios de hosting superiores a precios competitivos. Desde entonces, hemos crecido constantemente, ampliando nuestra infraestructura y mejorando nuestros servicios.",
+      historyText: "Fundada en 2025, ZenoScale nació de la pasión por la tecnología y la necesidad de ofrecer servicios de hosting superiores a precios competitivos. Desde entonces, hemos crecido constantemente, ampliando nuestra infraestructura y mejorando nuestros servicios.",
       valuesTitle: "Nuestros valores fundamentales",
       values: [
         {
@@ -68,7 +67,7 @@ const About = () => {
       vision: "Our Vision",
       visionText: "To become the preferred hosting provider for customers who value quality, innovation, and personalized service.",
       history: "Our History",
-      historyText: "Founded in 2023, ZenoScale was born from a passion for technology and the need to offer superior hosting services at competitive prices. Since then, we have consistently grown, expanding our infrastructure and improving our services.",
+      historyText: "Founded in 2025, ZenoScale was born from a passion for technology and the need to offer superior hosting services at competitive prices. Since then, we have consistently grown, expanding our infrastructure and improving our services.",
       valuesTitle: "Our Core Values",
       values: [
         {
@@ -172,8 +171,8 @@ const About = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => toast({
-                  title: "¡Gracias por tu interés!",
-                  description: "Estamos construyendo una comunidad de clientes satisfechos."
+                  title: language === 'es' ? "¡Gracias por tu interés!" : "Thank you for your interest!",
+                  description: language === 'es' ? "Estamos construyendo una comunidad de clientes satisfechos." : "We are building a community of satisfied customers."
                 })}
               >
                 {language === 'es' ? 'Descubre más' : 'Learn more'}
@@ -217,6 +216,38 @@ const About = () => {
           </div>
         </section>
         
+        {/* Data Center Image Section */}
+        <section className="py-12">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.div 
+              className="bg-zinc-800/30 rounded-xl overflow-hidden border border-zinc-700 shadow-lg"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+            >
+              <div className="relative">
+                <img 
+                  src="/lovable-uploads/d2aa2bfa-9b68-4ece-9af0-da13bdef2ee1.png" 
+                  alt="ZenoScale Data Center" 
+                  className="w-full h-auto md:h-[400px] object-cover object-center"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end">
+                  <div className="p-6 md:p-8">
+                    <h3 className="text-xl md:text-2xl font-bold text-white mb-2 gradient-text glow-text">
+                      {language === 'es' ? 'Infraestructura de Alto Rendimiento' : 'High-Performance Infrastructure'}
+                    </h3>
+                    <p className="text-zinc-100 text-sm md:text-base max-w-2xl">
+                      {language === 'es' 
+                        ? 'Nuestros centros de datos de última generación garantizan rendimiento, seguridad y confiabilidad para todos tus proyectos.'
+                        : 'Our state-of-the-art data centers ensure performance, security, and reliability for all your projects.'}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+        
         {/* History Section */}
         <section className="py-16">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -241,7 +272,7 @@ const About = () => {
                   transition={{ duration: 0.6, delay: 0.3 }}
                 >
                   <div className="bg-zinc-800 border border-zinc-700 p-6 rounded-xl ml-6 md:ml-0 md:mr-6 md:text-right md:w-[calc(50%-3rem)]">
-                    <h3 className="text-xl font-bold mb-2">Abril 2023</h3>
+                    <h3 className="text-xl font-bold mb-2">Abril 2025</h3>
                     <p className="text-zinc-300">Lanzamiento de ZenoScale con servicios de Game Hosting para Minecraft y otros juegos.</p>
                   </div>
                   <motion.div 
@@ -257,7 +288,7 @@ const About = () => {
                   transition={{ duration: 0.6, delay: 0.5 }}
                 >
                   <div className="bg-zinc-800 border border-zinc-700 p-6 rounded-xl mr-6 md:mr-0 md:ml-6 md:w-[calc(50%-3rem)]">
-                    <h3 className="text-xl font-bold mb-2">Mayo 2023</h3>
+                    <h3 className="text-xl font-bold mb-2">Mayo 2025</h3>
                     <p className="text-zinc-300">Expansión a Web Hosting, automatizaciones y servicios VPS para desarrolladores y empresas.</p>
                   </div>
                   <motion.div 
@@ -273,7 +304,7 @@ const About = () => {
                   transition={{ duration: 0.6, delay: 0.7 }}
                 >
                   <div className="bg-zinc-800 border border-zinc-700 p-6 rounded-xl ml-6 md:ml-0 md:mr-6 md:text-right md:w-[calc(50%-3rem)]">
-                    <h3 className="text-xl font-bold mb-2">Junio 2023</h3>
+                    <h3 className="text-xl font-bold mb-2">Junio 2025</h3>
                     <p className="text-zinc-300">Inicio de los servicios de Bare Metal para aplicaciones con altos requisitos de rendimiento.</p>
                   </div>
                   <motion.div 
@@ -403,7 +434,7 @@ const About = () => {
           </div>
         </section>
         
-        {/* Tech Stack Section - New Addition */}
+        {/* Tech Stack Section */}
         <section className="py-16 bg-zinc-800/20">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div 

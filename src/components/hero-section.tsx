@@ -30,6 +30,10 @@ export function HeroSection({ language }: HeroSectionProps) {
   
   const { title, highlight, description, primaryButton, secondaryButton } = content[validLanguage];
 
+  const scrollToPricing = () => {
+    document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <section className="relative py-28 md:py-36 lg:py-44 overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-[#070c14] to-[#0a1020] opacity-90"></div>
@@ -70,6 +74,7 @@ export function HeroSection({ language }: HeroSectionProps) {
             size="lg" 
             variant="outline" 
             className="border-zinc-700 text-white hover:bg-zinc-800 transition-all group hover-lift hover-button"
+            onClick={scrollToPricing}
           >
             <span className="relative z-10 flex items-center">
               {secondaryButton}

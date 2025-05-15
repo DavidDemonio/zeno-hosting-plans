@@ -11,7 +11,7 @@ import { AboutSection } from "@/components/about-section";
 import { PanelShowcase } from "@/components/panel-showcase";
 
 const Index = () => {
-  const [shootingStars, setShootingStars] = useState<{ id: number, delay: number, duration: number, top: string }[]>([]);
+  const [shootingStars, setShootingStars] = useState<{ id: number, delay: number, duration: number, top: string, offset: number }[]>([]);
   const [loading, setLoading] = useState(true);
   const [language, setLanguage] = useState('es');
   
@@ -26,7 +26,8 @@ const Index = () => {
       id: i,
       delay: Math.random() * 20,
       duration: Math.random() * 3 + 4,
-      top: `${Math.random() * 30}vh`
+      top: `${Math.random() * 30}vh`,
+      offset: Math.random() * 5 - 2
     }));
     
     setShootingStars(stars);
@@ -87,10 +88,9 @@ const Index = () => {
           key={star.id}
           className="shooting-star vertical"
           style={{
-            top: star.top,
-            animationDelay: `${star.delay}s`,
-            animationDuration: `${star.duration}s`
-          }}
+            '--offset': star.offset,
+            '--delay': star.delay
+          } as React.CSSProperties}
         />
       ))}
       

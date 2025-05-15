@@ -38,7 +38,8 @@ export function PricingSection({ language }: PricingSectionProps) {
       },
       createBtn: "Crear servidor",
       idealFor: "Ideal para:",
-      perfectFor: "Perfecto para:"
+      perfectFor: "Perfecto para:",
+      period: "/mes"
     },
     en: {
       title: "Hosting",
@@ -51,14 +52,15 @@ export function PricingSection({ language }: PricingSectionProps) {
       },
       createBtn: "Create server",
       idealFor: "Ideal for:",
-      perfectFor: "Perfect for:"
+      perfectFor: "Perfect for:",
+      period: "/month"
     }
   };
 
   // Asegurarse de que language sea 'es' o 'en', con 'es' como valor predeterminado
   const validLanguage = language && (language === 'en' || language === 'es') ? language : 'es';
 
-  const { title, highlight, description, filters, createBtn, idealFor, perfectFor } = 
+  const { title, highlight, description, filters, createBtn, idealFor, perfectFor, period } = 
     content[validLanguage];
 
   return (
@@ -144,7 +146,8 @@ export function PricingSection({ language }: PricingSectionProps) {
                         language={validLanguage} 
                         idealForLabel={idealFor} 
                         perfectForLabel={perfectFor} 
-                        createBtnText={createBtn} 
+                        createBtnText={createBtn}
+                        periodText={period}
                       />
                     </motion.div>
                   </CarouselItem>
@@ -162,12 +165,13 @@ export function PricingSection({ language }: PricingSectionProps) {
   );
 }
 
-function PlanCard({ plan, language, idealForLabel, perfectForLabel, createBtnText }: { 
+function PlanCard({ plan, language, idealForLabel, perfectForLabel, createBtnText, periodText }: { 
   plan: Plan; 
   language: string;
   idealForLabel: string;
   perfectForLabel: string;
   createBtnText: string;
+  periodText: string;
 }) {
   return (
     <div 
@@ -192,7 +196,7 @@ function PlanCard({ plan, language, idealForLabel, perfectForLabel, createBtnTex
         
         <div className="flex items-baseline mb-4">
           <span className="text-3xl font-bold">€{plan.price}</span>
-          <span className="text-zinc-400 ml-1">/{plan.period}</span>
+          <span className="text-zinc-400 ml-1">{periodText}</span>
         </div>
         
         <div className="grid grid-cols-2 gap-2 mb-4">

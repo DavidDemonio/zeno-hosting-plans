@@ -104,11 +104,11 @@ export function Navbar({ language, setLanguage }: NavbarProps) {
             <div className="language-selector ml-4">
               <button 
                 onClick={toggleLanguage}
-                className={`flex items-center space-x-1 px-3 py-1 rounded-full bg-zinc-800/50 hover:bg-zinc-700/60 transition-all ${animating ? 'animate-spin' : ''}`}
+                className={`flex items-center space-x-1 px-3 py-1 rounded-full bg-zinc-800/50 hover:bg-zinc-700/60 transition-all border border-transparent ${animating ? 'scale-95' : ''} hover:border-zeno-purple/50 hover:shadow-[0_0_10px_rgba(155,135,245,0.3)]`}
                 disabled={animating}
               >
-                <Globe className={`w-4 h-4 ${animating ? 'animate-pulse' : ''}`} />
-                <span className={animating ? 'animate-pulse' : ''}>{language === 'es' ? 'ES' : 'EN'}</span>
+                <Globe className={`w-4 h-4 ${animating ? 'opacity-0' : 'opacity-100'} transition-opacity`} />
+                <span className={`${animating ? 'opacity-0' : 'opacity-100'} transition-opacity`}>{language === 'es' ? 'ES' : 'EN'}</span>
               </button>
             </div>
             
@@ -140,11 +140,11 @@ export function Navbar({ language, setLanguage }: NavbarProps) {
             <div className="language-selector mr-2">
               <button 
                 onClick={toggleLanguage}
-                className={`flex items-center space-x-1 px-2 py-1 rounded-full bg-zinc-800/50 ${animating ? 'animate-spin' : ''}`}
+                className={`flex items-center space-x-1 px-2 py-1 rounded-full bg-zinc-800/50 ${animating ? 'scale-95' : ''} border border-transparent hover:border-zeno-purple/50 hover:shadow-[0_0_10px_rgba(155,135,245,0.3)]`}
                 disabled={animating}
               >
-                <Globe className={`w-4 h-4 ${animating ? 'animate-pulse' : ''}`} />
-                <span className={animating ? 'animate-pulse' : ''}>{language === 'es' ? 'ES' : 'EN'}</span>
+                <Globe className={`w-4 h-4 ${animating ? 'opacity-0' : 'opacity-100'} transition-opacity`} />
+                <span className={`${animating ? 'opacity-0' : 'opacity-100'} transition-opacity`}>{language === 'es' ? 'ES' : 'EN'}</span>
               </button>
             </div>
             
