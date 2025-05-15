@@ -25,24 +25,28 @@ export function HeroSection({ language }: HeroSectionProps) {
     }
   };
 
-  // Asegurarse de que language sea 'es' o 'en', con 'es' como valor predeterminado
+  // Make sure language is 'es' or 'en', with 'es' as default
   const validLanguage = language && (language === 'en' || language === 'es') ? language : 'es';
   
   const { title, highlight, description, primaryButton, secondaryButton } = content[validLanguage];
 
   return (
     <section className="relative py-28 md:py-36 lg:py-44 overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-radial"></div>
+      <div className="absolute inset-0 bg-gradient-to-b from-[#070c14] to-[#0a1020] opacity-90"></div>
       
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <div className="flex flex-col items-center justify-center stagger-animation stagger-1">
           <Logo size="lg" className="mx-auto mb-8 glow-animation" />
         </div>
         
-        <div className="overflow-hidden mb-6">
+        <div className="overflow-visible mb-8">
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight stagger-animation stagger-2 text-center">
-            <span className="gradient-text glow-text inline-block">{highlight}</span><br />
-            <span>{title}</span>
+            <div className="mb-2 inline-block">
+              <span className="gradient-text glow-text">{highlight}</span>
+            </div>
+            <div className="mt-2 inline-block">
+              <span className="text-white">{title}</span>
+            </div>
           </h1>
         </div>
         

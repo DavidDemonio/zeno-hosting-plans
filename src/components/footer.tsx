@@ -1,5 +1,6 @@
 
 import { Logo } from '@/components/ui/logo';
+import { Link } from 'react-router-dom';
 
 interface FooterProps {
   language: string;
@@ -13,24 +14,24 @@ export function Footer({ language }: FooterProps) {
       description: "Soluciones de alojamiento profesional para tus aplicaciones y juegos.",
       services: "Servicios",
       serviceLinks: [
-        "Minecraft Hosting",
-        "VPS Hosting",
-        "Servidores dedicados",
-        "Discord Bot Hosting"
+        { name: "Minecraft Hosting", path: "/services/minecraft" },
+        { name: "VPS Hosting", path: "/services/vps" },
+        { name: "Servidores dedicados", path: "/services/dedicated" },
+        { name: "Discord Bot Hosting", path: "/services/discord" }
       ],
       company: "Empresa",
       companyLinks: [
-        "Sobre nosotros",
-        "Contacto",
-        "Panel",
-        "Partners"
+        { name: "Sobre nosotros", path: "/about" },
+        { name: "Contacto", path: "/contact" },
+        { name: "Panel", path: "https://panel.zenoscale.es", external: true },
+        { name: "Partners", path: "/partners" }
       ],
       legal: "Legal",
       legalLinks: [
-        "Política de Privacidad",
-        "Términos de Servicio",
-        "Reembolsos",
-        "DMCA"
+        { name: "Política de Privacidad", path: "/privacy" },
+        { name: "Términos de Servicio", path: "/terms" },
+        { name: "Reembolsos", path: "/refunds" },
+        { name: "DMCA", path: "/dmca" }
       ],
       copyright: "Todos los derechos reservados.",
       privacyPolicy: "Política de Privacidad",
@@ -40,24 +41,24 @@ export function Footer({ language }: FooterProps) {
       description: "Professional hosting solutions for your applications and games.",
       services: "Services",
       serviceLinks: [
-        "Minecraft Hosting",
-        "VPS Hosting",
-        "Dedicated Servers",
-        "Discord Bot Hosting"
+        { name: "Minecraft Hosting", path: "/services/minecraft" },
+        { name: "VPS Hosting", path: "/services/vps" },
+        { name: "Dedicated Servers", path: "/services/dedicated" },
+        { name: "Discord Bot Hosting", path: "/services/discord" }
       ],
       company: "Company",
       companyLinks: [
-        "About Us",
-        "Contact",
-        "Panel",
-        "Partners"
+        { name: "About Us", path: "/about" },
+        { name: "Contact", path: "/contact" },
+        { name: "Panel", path: "https://panel.zenoscale.es", external: true },
+        { name: "Partners", path: "/partners" }
       ],
       legal: "Legal",
       legalLinks: [
-        "Privacy Policy",
-        "Terms of Service",
-        "Refunds",
-        "DMCA"
+        { name: "Privacy Policy", path: "/privacy" },
+        { name: "Terms of Service", path: "/terms" },
+        { name: "Refunds", path: "/refunds" },
+        { name: "DMCA", path: "/dmca" }
       ],
       copyright: "All rights reserved.",
       privacyPolicy: "Privacy Policy",
@@ -65,8 +66,8 @@ export function Footer({ language }: FooterProps) {
     }
   };
 
-  // Asegurarse de que language sea 'es' o 'en', con 'es' como valor predeterminado
-  const validLanguage = language && (language === 'en' || language === 'es') ? language : 'es';
+  // Make sure language is 'es' or 'en', with 'es' as default
+  const validLanguage = language === 'en' ? 'en' : 'es';
   
   const { 
     description, services, serviceLinks, company, companyLinks, 
@@ -104,7 +105,13 @@ export function Footer({ language }: FooterProps) {
             </h3>
             <ul className="space-y-3">
               {serviceLinks.map((link, index) => (
-                <FooterLink key={index} href="#">{link}</FooterLink>
+                <FooterLink 
+                  key={index} 
+                  href={link.path} 
+                  external={link.external}
+                >
+                  {link.name}
+                </FooterLink>
               ))}
             </ul>
           </div>
@@ -115,7 +122,13 @@ export function Footer({ language }: FooterProps) {
             </h3>
             <ul className="space-y-3">
               {companyLinks.map((link, index) => (
-                <FooterLink key={index} href="#">{link}</FooterLink>
+                <FooterLink 
+                  key={index} 
+                  href={link.path}
+                  external={link.external}
+                >
+                  {link.name}
+                </FooterLink>
               ))}
             </ul>
           </div>
@@ -126,7 +139,13 @@ export function Footer({ language }: FooterProps) {
             </h3>
             <ul className="space-y-3">
               {legalLinks.map((link, index) => (
-                <FooterLink key={index} href="#">{link}</FooterLink>
+                <FooterLink 
+                  key={index} 
+                  href={link.path}
+                  external={link.external}
+                >
+                  {link.name}
+                </FooterLink>
               ))}
             </ul>
           </div>
@@ -137,12 +156,12 @@ export function Footer({ language }: FooterProps) {
             &copy; {currentYear} ZenoScale. {copyright}
           </p>
           <div className="mt-4 md:mt-0 flex space-x-4">
-            <a href="#" className="text-zinc-500 hover:text-zinc-400 text-xs hover-button">
+            <Link to="/privacy" className="text-zinc-500 hover:text-zinc-400 text-xs hover-button">
               {privacyPolicy}
-            </a>
-            <a href="#" className="text-zinc-500 hover:text-zinc-400 text-xs hover-button">
+            </Link>
+            <Link to="/terms" className="text-zinc-500 hover:text-zinc-400 text-xs hover-button">
               {terms}
-            </a>
+            </Link>
           </div>
         </div>
       </div>
@@ -150,12 +169,27 @@ export function Footer({ language }: FooterProps) {
   );
 }
 
-function FooterLink({ href, children }: { href: string; children: React.ReactNode }) {
+function FooterLink({ href, children, external = false }: { href: string; children: React.ReactNode; external?: boolean }) {
+  if (external) {
+    return (
+      <li>
+        <a 
+          href={href} 
+          className="text-zinc-400 hover:text-white transition-colors text-sm hover-button"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {children}
+        </a>
+      </li>
+    );
+  }
+  
   return (
     <li>
-      <a href={href} className="text-zinc-400 hover:text-white transition-colors text-sm hover-button">
+      <Link to={href} className="text-zinc-400 hover:text-white transition-colors text-sm hover-button">
         {children}
-      </a>
+      </Link>
     </li>
   );
 }

@@ -7,6 +7,8 @@ import { PricingSection } from "@/components/pricing-section";
 import { CTASection } from "@/components/cta-section";
 import { Footer } from "@/components/footer";
 import { useEffect, useState } from "react";
+import { AboutSection } from "@/components/about-section";
+import { PanelShowcase } from "@/components/panel-showcase";
 
 const Index = () => {
   const [shootingStars, setShootingStars] = useState<{ id: number, delay: number, duration: number, top: string }[]>([]);
@@ -70,7 +72,7 @@ const Index = () => {
             <span className="w-2 h-2 bg-white rounded-full animate-pulse" style={{animationDelay: '0.4s'}}></span>
           </div>
         </div>
-        <div className="initial-shooting-star"></div>
+        <div className="initial-shooting-star vertical"></div>
       </div>
     );
   }
@@ -83,7 +85,7 @@ const Index = () => {
       {shootingStars.map(star => (
         <div
           key={star.id}
-          className="shooting-star"
+          className="shooting-star vertical"
           style={{
             top: star.top,
             animationDelay: `${star.delay}s`,
@@ -97,6 +99,8 @@ const Index = () => {
         <HeroSection language={language} />
         <FeaturesSection language={language} />
         <PricingSection language={language} />
+        <AboutSection language={language} />
+        <PanelShowcase language={language} />
         <CTASection language={language} />
       </main>
       <Footer language={language} />

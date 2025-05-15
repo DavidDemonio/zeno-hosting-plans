@@ -1,8 +1,8 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Logo } from '@/components/ui/logo';
 import { Button } from '@/components/ui/button';
-import { Menu, Server, Activity, Users, MessageSquare, Globe } from 'lucide-react';
+import { Menu, Server, Activity, MessageSquare, Globe } from 'lucide-react';
 
 interface NavbarProps {
   language: string;
@@ -11,9 +11,14 @@ interface NavbarProps {
 
 export function Navbar({ language, setLanguage }: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [animating, setAnimating] = useState(false);
 
   const toggleLanguage = () => {
-    setLanguage(language === 'es' ? 'en' : 'es');
+    setAnimating(true);
+    setTimeout(() => {
+      setLanguage(language === 'es' ? 'en' : 'es');
+      setTimeout(() => setAnimating(false), 300);
+    }, 300);
   };
 
   return (
@@ -31,20 +36,15 @@ export function Navbar({ language, setLanguage }: NavbarProps) {
             <NavLink href="#pricing" icon={<Activity className="w-4 h-4 mr-1" />}>
               {language === 'es' ? 'Planes' : 'Plans'}
             </NavLink>
-            <NavLink href="#about" icon={<Users className="w-4 h-4 mr-1" />}>
-              {language === 'es' ? 'Nosotros' : 'About'}
-            </NavLink>
-            <NavLink href="#contact" icon={<MessageSquare className="w-4 h-4 mr-1" />}>
-              {language === 'es' ? 'Contacto' : 'Contact'}
-            </NavLink>
             
             <div className="language-selector ml-4">
               <button 
                 onClick={toggleLanguage}
-                className="flex items-center space-x-1 px-3 py-1 rounded-full bg-zinc-800/50 hover:bg-zinc-700/60 transition-colors"
+                className={`flex items-center space-x-1 px-3 py-1 rounded-full bg-zinc-800/50 hover:bg-zinc-700/60 transition-all ${animating ? 'animate-spin' : ''}`}
+                disabled={animating}
               >
-                <Globe className="w-4 h-4" />
-                <span>{language === 'es' ? 'ES' : 'EN'}</span>
+                <Globe className={`w-4 h-4 ${animating ? 'animate-pulse' : ''}`} />
+                <span className={animating ? 'animate-pulse' : ''}>{language === 'es' ? 'ES' : 'EN'}</span>
               </button>
             </div>
             
@@ -66,10 +66,11 @@ export function Navbar({ language, setLanguage }: NavbarProps) {
             <div className="language-selector mr-2">
               <button 
                 onClick={toggleLanguage}
-                className="flex items-center space-x-1 px-2 py-1 rounded-full bg-zinc-800/50"
+                className={`flex items-center space-x-1 px-2 py-1 rounded-full bg-zinc-800/50 ${animating ? 'animate-spin' : ''}`}
+                disabled={animating}
               >
-                <Globe className="w-4 h-4" />
-                <span>{language === 'es' ? 'ES' : 'EN'}</span>
+                <Globe className={`w-4 h-4 ${animating ? 'animate-pulse' : ''}`} />
+                <span className={animating ? 'animate-pulse' : ''}>{language === 'es' ? 'ES' : 'EN'}</span>
               </button>
             </div>
             
@@ -94,12 +95,6 @@ export function Navbar({ language, setLanguage }: NavbarProps) {
             </MobileNavLink>
             <MobileNavLink href="#pricing" icon={<Activity className="w-4 h-4 mr-2" />}>
               {language === 'es' ? 'Planes' : 'Plans'}
-            </MobileNavLink>
-            <MobileNavLink href="#about" icon={<Users className="w-4 h-4 mr-2" />}>
-              {language === 'es' ? 'Nosotros' : 'About'}
-            </MobileNavLink>
-            <MobileNavLink href="#contact" icon={<MessageSquare className="w-4 h-4 mr-2" />}>
-              {language === 'es' ? 'Contacto' : 'Contact'}
             </MobileNavLink>
             <MobileNavLink href="https://dash.zenoscale.es" external icon={<Server className="w-4 h-4 mr-2" />}>
               {language === 'es' ? 'Acceso plataforma' : 'Platform Access'}
