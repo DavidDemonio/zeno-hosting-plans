@@ -1,12 +1,15 @@
 
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Users } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 interface AboutSectionProps {
   language: string;
 }
 
 export function AboutSection({ language }: AboutSectionProps) {
+  const navigate = useNavigate();
+  
   const content = {
     es: {
       title: "Sobre",
@@ -44,6 +47,10 @@ export function AboutSection({ language }: AboutSectionProps) {
   const validLanguage = language === 'en' ? 'en' : 'es';
   
   const { title, highlight, description, mission, values, valuesList, ctaButton, learnMore } = content[validLanguage];
+
+  const handleLearnMoreClick = () => {
+    navigate("/about");
+  };
 
   return (
     <section id="about" className="py-16 lg:py-24 relative">
@@ -94,7 +101,10 @@ export function AboutSection({ language }: AboutSectionProps) {
               </ul>
               
               <div className="mt-6 text-right">
-                <a href="/about" className="text-zeno-purple hover:text-white hover-button inline-flex items-center text-sm">
+                <a href="#" onClick={(e) => {
+                  e.preventDefault();
+                  handleLearnMoreClick();
+                }} className="text-zeno-purple hover:text-white hover-button inline-flex items-center text-sm">
                   {learnMore}
                   <ArrowRight className="ml-1 h-3 w-3" />
                 </a>

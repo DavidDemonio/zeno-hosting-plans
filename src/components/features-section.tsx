@@ -1,11 +1,13 @@
+
 import { cn } from '@/lib/utils';
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger
 } from "@/components/ui/tooltip";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface FeatureCardProps {
   icon: React.ReactNode;
@@ -112,60 +114,18 @@ export function FeaturesSection({ language }: FeaturesSectionProps) {
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <TooltipProvider delayDuration={2000}>
-            <FeatureCard
-              icon={<RocketIcon />}
-              title={features[0].title}
-              description={features[0].description}
-              detailedDescription={features[0].detailedDescription}
-              className="scroll-reveal"
-              style={{ transitionDelay: '0.1s' }}
-            />
-            
-            <FeatureCard
-              icon={<ShieldIcon />}
-              title={features[1].title}
-              description={features[1].description}
-              detailedDescription={features[1].detailedDescription}
-              className="scroll-reveal"
-              style={{ transitionDelay: '0.2s' }}
-            />
-            
-            <FeatureCard
-              icon={<ClockIcon />}
-              title={features[2].title}
-              description={features[2].description}
-              detailedDescription={features[2].detailedDescription}
-              className="scroll-reveal"
-              style={{ transitionDelay: '0.3s' }}
-            />
-            
-            <FeatureCard
-              icon={<ServerIcon />}
-              title={features[3].title}
-              description={features[3].description}
-              detailedDescription={features[3].detailedDescription}
-              className="scroll-reveal"
-              style={{ transitionDelay: '0.4s' }}
-            />
-            
-            <FeatureCard
-              icon={<ChipIcon />}
-              title={features[4].title}
-              description={features[4].description}
-              detailedDescription={features[4].detailedDescription}
-              className="scroll-reveal"
-              style={{ transitionDelay: '0.5s' }}
-            />
-            
-            <FeatureCard
-              icon={<GamepadIcon />}
-              title={features[5].title}
-              description={features[5].description}
-              detailedDescription={features[5].detailedDescription}
-              className="scroll-reveal"
-              style={{ transitionDelay: '0.6s' }}
-            />
+          <TooltipProvider delayDuration={2500}>
+            {features.map((feature, index) => (
+              <FeatureCard
+                key={index}
+                icon={featureIcons[index]}
+                title={feature.title}
+                description={feature.description}
+                detailedDescription={feature.detailedDescription}
+                className="scroll-reveal"
+                style={{ transitionDelay: `${0.1 * (index + 1)}s` }}
+              />
+            ))}
           </TooltipProvider>
         </div>
       </div>
@@ -175,6 +135,31 @@ export function FeaturesSection({ language }: FeaturesSectionProps) {
 
 function FeatureCard({ icon, title, description, detailedDescription, className, ...props }: FeatureCardProps & React.HTMLAttributes<HTMLDivElement>) {
   const [isHovering, setIsHovering] = useState(false);
+  const hoverTimerRef = useRef<number | null>(null);
+  const tooltipDelay = 2500; // 2.5 seconds delay
+  
+  const startHoverTimer = () => {
+    if (hoverTimerRef.current) return;
+    hoverTimerRef.current = window.setTimeout(() => {
+      setIsHovering(true);
+    }, tooltipDelay);
+  };
+  
+  const clearHoverTimer = () => {
+    if (hoverTimerRef.current) {
+      clearTimeout(hoverTimerRef.current);
+      hoverTimerRef.current = null;
+    }
+    setIsHovering(false);
+  };
+  
+  useEffect(() => {
+    return () => {
+      if (hoverTimerRef.current) {
+        clearTimeout(hoverTimerRef.current);
+      }
+    };
+  }, []);
 
   return (
     <Tooltip open={isHovering}>
@@ -184,8 +169,10 @@ function FeatureCard({ icon, title, description, detailedDescription, className,
             "relative p-6 rounded-xl bg-card-gradient border border-zinc-800 hover:border-zeno-purple/50 transition-all group hover-lift",
             className
           )}
-          onMouseEnter={() => setIsHovering(true)}
-          onMouseLeave={() => setIsHovering(false)}
+          onMouseEnter={startHoverTimer}
+          onMouseLeave={clearHoverTimer}
+          onTouchStart={startHoverTimer}
+          onTouchEnd={clearHoverTimer}
           {...props}
         >
           <div className="p-3 mb-4 rounded-lg bg-zinc-800/50 w-fit group-hover:bg-zeno-purple/20 transition-colors">
@@ -198,13 +185,33 @@ function FeatureCard({ icon, title, description, detailedDescription, className,
       </TooltipTrigger>
       <TooltipContent 
         side="right" 
-        className="max-w-xs p-4 bg-zinc-900/95 border-zinc-700 backdrop-blur-lg animate-fade-in"
+        className="max-w-xs p-4 bg-zinc-900/95 border-zinc-700 backdrop-blur-lg"
+        sideOffset={10}
       >
-        <p className="text-sm">{detailedDescription}</p>
+        <motion.div
+          initial={{ opacity: 0, y: 5 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 5 }}
+          transition={{ duration: 0.3 }}
+          className="space-y-2"
+        >
+          <h4 className="font-semibold text-base gradient-text">{title}</h4>
+          <p className="text-sm">{detailedDescription}</p>
+        </motion.div>
       </TooltipContent>
     </Tooltip>
   );
 }
+
+// Feature icons with improved consistency
+const featureIcons = [
+  <RocketIcon key="rocket" />,
+  <ShieldIcon key="shield" />,
+  <ClockIcon key="clock" />,
+  <ServerIcon key="server" />,
+  <ChipIcon key="chip" />,
+  <GamepadIcon key="gamepad" />,
+];
 
 // Simple Icon Components
 function RocketIcon() {
