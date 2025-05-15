@@ -2,8 +2,14 @@
 import React, { useState, useEffect } from 'react';
 import { Logo } from '@/components/ui/logo';
 import { Button } from '@/components/ui/button';
-import { Menu, Server, Activity, MessageSquare, Globe } from 'lucide-react';
+import { Menu, Server, Activity, MessageSquare, Globe, ChevronDown } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 interface NavbarProps {
   language: string;
@@ -22,6 +28,40 @@ export function Navbar({ language, setLanguage }: NavbarProps) {
     }, 300);
   };
 
+  const subpagesContent = {
+    es: {
+      title: "Subpáginas",
+      items: [
+        { name: "Inicio", path: "/" },
+        { name: "Sobre Nosotros", path: "/about" },
+        { name: "Contacto", path: "/contact" },
+        { name: "Privacidad", path: "/privacy" },
+        { name: "Términos", path: "/terms" },
+        { name: "Reembolsos", path: "/refunds" },
+        { name: "DMCA", path: "/dmca" },
+        { name: "Partners", path: "/partners" }
+      ]
+    },
+    en: {
+      title: "Subpages",
+      items: [
+        { name: "Home", path: "/" },
+        { name: "About Us", path: "/about" },
+        { name: "Contact", path: "/contact" },
+        { name: "Privacy", path: "/privacy" },
+        { name: "Terms", path: "/terms" },
+        { name: "Refunds", path: "/refunds" },
+        { name: "DMCA", path: "/dmca" },
+        { name: "Partners", path: "/partners" }
+      ]
+    }
+  };
+
+  // Make sure language is 'es' or 'en', with 'es' as default
+  const validLanguage = language === 'en' ? 'en' : 'es';
+  
+  const subpages = subpagesContent[validLanguage];
+
   return (
     <nav className="fixed top-0 left-0 w-full z-50 bg-zeno-dark/80 backdrop-blur-md animate-fade-in">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -39,6 +79,27 @@ export function Navbar({ language, setLanguage }: NavbarProps) {
             <NavLink href="#pricing" icon={<Activity className="w-4 h-4 mr-1" />}>
               {language === 'es' ? 'Planes' : 'Plans'}
             </NavLink>
+            
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button className="flex items-center space-x-1 text-zinc-300 hover:text-white transition-colors duration-200 text-sm font-medium group hover-button">
+                  {subpages.title}
+                  <ChevronDown className="h-4 w-4 ml-1 text-zinc-400 group-hover:text-zeno-purple transition-colors" />
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="bg-zinc-800/95 backdrop-blur-md border-zinc-700 mt-2 animate-fade-in">
+                {subpages.items.map((item, index) => (
+                  <DropdownMenuItem key={index} asChild>
+                    <Link 
+                      to={item.path}
+                      className="text-zinc-300 hover:text-white hover:bg-zinc-700 cursor-pointer focus:bg-zinc-700"
+                    >
+                      {item.name}
+                    </Link>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
             
             <div className="language-selector ml-4">
               <button 
@@ -109,6 +170,21 @@ export function Navbar({ language, setLanguage }: NavbarProps) {
             <MobileNavLink href="#pricing" icon={<Activity className="w-4 h-4 mr-2" />}>
               {language === 'es' ? 'Planes' : 'Plans'}
             </MobileNavLink>
+            
+            {/* Subpages in mobile menu */}
+            <div className="pt-2 pb-1 px-3 text-zinc-400 text-sm font-medium">
+              {subpages.title}
+            </div>
+            {subpages.items.map((item, index) => (
+              <Link 
+                key={index}
+                to={item.path}
+                className="block py-2 px-3 text-base font-medium text-zinc-300 hover:text-white hover:bg-zinc-700/50 transition-colors duration-200 rounded-md"
+              >
+                {item.name}
+              </Link>
+            ))}
+            
             <a href="https://dash.zenoscale.es" target="_blank" rel="noopener noreferrer" className="flex items-center py-2 px-3 text-base font-medium text-zinc-300 hover:text-white transition-colors duration-200">
               <span className="text-zeno-purple"><Server className="w-4 h-4 mr-2" /></span>
               {language === 'es' ? 'Acceso plataforma' : 'Platform Access'}

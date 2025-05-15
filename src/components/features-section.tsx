@@ -1,10 +1,17 @@
-
 import { cn } from '@/lib/utils';
+import { useState } from 'react';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger
+} from "@/components/ui/tooltip";
 
 interface FeatureCardProps {
   icon: React.ReactNode;
   title: string;
   description: string;
+  detailedDescription: string;
   className?: string;
 }
 
@@ -21,27 +28,33 @@ export function FeaturesSection({ language }: FeaturesSectionProps) {
       features: [
         {
           title: "Alto rendimiento",
-          description: "Impulsado por hardware de última generación para máxima velocidad"
+          description: "Impulsado por hardware de última generación para máxima velocidad",
+          detailedDescription: "Nuestros servidores utilizan procesadores de última generación, memoria DDR4 de alta velocidad y discos SSD NVMe para ofrecer un rendimiento excepcional. La optimización de redes garantiza latencias mínimas y máxima estabilidad incluso en los momentos de mayor carga."
         },
         {
           title: "Protección DDoS",
-          description: "Protección 24/7 contra ataques DDoS incluida"
+          description: "Protección 24/7 contra ataques DDoS incluida",
+          detailedDescription: "Nuestra protección DDoS avanzada mitiga automáticamente ataques de hasta 1Tbps sin interrumpir tu servicio. Sistema de detección de anomalías en tiempo real y filtrado inteligente para garantizar que tu aplicación esté siempre disponible."
         },
         {
           title: "Configuración instantánea",
-          description: "Pon en marcha tu servidor en minutos"
+          description: "Pon en marcha tu servidor en minutos",
+          detailedDescription: "Nuestro sistema automatizado permite desplegar servidores en menos de 60 segundos. Selecciona tu configuración, realiza el pago y tu servidor estará listo para usar inmediatamente con todas las herramientas preconfiguradas."
         },
         {
           title: "Acceso root completo",
-          description: "Control total sobre tu servidor virtual"
+          description: "Control total sobre tu servidor virtual",
+          detailedDescription: "Obtén acceso total a tu máquina con privilegios de superusuario. Instala cualquier software, personaliza configuraciones a nivel de sistema operativo y ejecuta tus aplicaciones exactamente como necesitas sin restricciones."
         },
         {
           title: "Hardware potente",
-          description: "CPUs de última generación y SSDs NVMe"
+          description: "CPUs de última generación y SSDs NVMe",
+          detailedDescription: "Equipados con procesadores Intel Xeon o AMD EPYC de última generación, memoria RAM DDR4 ECC y almacenamiento NVMe con velocidades de lectura/escritura superiores a 3000MB/s para garantizar que tus aplicaciones se ejecuten sin cuellos de botella."
         },
         {
           title: "Panel intuitivo",
-          description: "Panel de control fácil de usar para tus juegos"
+          description: "Panel de control fácil de usar para tus juegos",
+          detailedDescription: "Nuestro panel de administración está diseñado pensando en la facilidad de uso. Interfaz limpia e intuitiva que permite gestionar todos los aspectos de tu servidor sin conocimientos técnicos avanzados. Incluye herramientas de monitorización en tiempo real."
         }
       ]
     },
@@ -52,27 +65,33 @@ export function FeaturesSection({ language }: FeaturesSectionProps) {
       features: [
         {
           title: "High performance",
-          description: "Powered by cutting-edge hardware for maximum speed"
+          description: "Powered by cutting-edge hardware for maximum speed",
+          detailedDescription: "Our servers use the latest generation processors, high-speed DDR4 memory, and NVMe SSDs to deliver exceptional performance. Network optimization ensures minimal latency and maximum stability even during peak loads."
         },
         {
           title: "DDoS Protection",
-          description: "24/7 protection against DDoS attacks included"
+          description: "24/7 protection against DDoS attacks included",
+          detailedDescription: "Our advanced DDoS protection automatically mitigates attacks of up to 1Tbps without interrupting your service. Real-time anomaly detection system and intelligent filtering to ensure your application is always available."
         },
         {
           title: "Instant Setup",
-          description: "Get your server up and running in minutes"
+          description: "Get your server up and running in minutes",
+          detailedDescription: "Our automated system allows you to deploy servers in less than 60 seconds. Select your configuration, make the payment, and your server will be ready to use immediately with all tools preconfigured."
         },
         {
           title: "Full Root Access",
-          description: "Total control over your virtual server"
+          description: "Total control over your virtual server",
+          detailedDescription: "Get complete access to your machine with superuser privileges. Install any software, customize system-level configurations, and run your applications exactly as you need them without restrictions."
         },
         {
           title: "Powerful Hardware",
-          description: "Latest generation CPUs and NVMe SSDs"
+          description: "Latest generation CPUs and NVMe SSDs",
+          detailedDescription: "Equipped with the latest generation Intel Xeon or AMD EPYC processors, ECC DDR4 RAM, and NVMe storage with read/write speeds above 3000MB/s to ensure your applications run without bottlenecks."
         },
         {
           title: "Intuitive Panel",
-          description: "Easy-to-use control panel for your games"
+          description: "Easy-to-use control panel for your games",
+          detailedDescription: "Our administration panel is designed with ease of use in mind. Clean and intuitive interface that allows you to manage all aspects of your server without advanced technical knowledge. Includes real-time monitoring tools."
         }
       ]
     }
@@ -93,75 +112,97 @@ export function FeaturesSection({ language }: FeaturesSectionProps) {
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <FeatureCard
-            icon={<RocketIcon />}
-            title={features[0].title}
-            description={features[0].description}
-            className="scroll-reveal"
-            style={{ transitionDelay: '0.1s' }}
-          />
-          
-          <FeatureCard
-            icon={<ShieldIcon />}
-            title={features[1].title}
-            description={features[1].description}
-            className="scroll-reveal"
-            style={{ transitionDelay: '0.2s' }}
-          />
-          
-          <FeatureCard
-            icon={<ClockIcon />}
-            title={features[2].title}
-            description={features[2].description}
-            className="scroll-reveal"
-            style={{ transitionDelay: '0.3s' }}
-          />
-          
-          <FeatureCard
-            icon={<ServerIcon />}
-            title={features[3].title}
-            description={features[3].description}
-            className="scroll-reveal"
-            style={{ transitionDelay: '0.4s' }}
-          />
-          
-          <FeatureCard
-            icon={<ChipIcon />}
-            title={features[4].title}
-            description={features[4].description}
-            className="scroll-reveal"
-            style={{ transitionDelay: '0.5s' }}
-          />
-          
-          <FeatureCard
-            icon={<GamepadIcon />}
-            title={features[5].title}
-            description={features[5].description}
-            className="scroll-reveal"
-            style={{ transitionDelay: '0.6s' }}
-          />
+          <TooltipProvider delayDuration={2000}>
+            <FeatureCard
+              icon={<RocketIcon />}
+              title={features[0].title}
+              description={features[0].description}
+              detailedDescription={features[0].detailedDescription}
+              className="scroll-reveal"
+              style={{ transitionDelay: '0.1s' }}
+            />
+            
+            <FeatureCard
+              icon={<ShieldIcon />}
+              title={features[1].title}
+              description={features[1].description}
+              detailedDescription={features[1].detailedDescription}
+              className="scroll-reveal"
+              style={{ transitionDelay: '0.2s' }}
+            />
+            
+            <FeatureCard
+              icon={<ClockIcon />}
+              title={features[2].title}
+              description={features[2].description}
+              detailedDescription={features[2].detailedDescription}
+              className="scroll-reveal"
+              style={{ transitionDelay: '0.3s' }}
+            />
+            
+            <FeatureCard
+              icon={<ServerIcon />}
+              title={features[3].title}
+              description={features[3].description}
+              detailedDescription={features[3].detailedDescription}
+              className="scroll-reveal"
+              style={{ transitionDelay: '0.4s' }}
+            />
+            
+            <FeatureCard
+              icon={<ChipIcon />}
+              title={features[4].title}
+              description={features[4].description}
+              detailedDescription={features[4].detailedDescription}
+              className="scroll-reveal"
+              style={{ transitionDelay: '0.5s' }}
+            />
+            
+            <FeatureCard
+              icon={<GamepadIcon />}
+              title={features[5].title}
+              description={features[5].description}
+              detailedDescription={features[5].detailedDescription}
+              className="scroll-reveal"
+              style={{ transitionDelay: '0.6s' }}
+            />
+          </TooltipProvider>
         </div>
       </div>
     </section>
   );
 }
 
-function FeatureCard({ icon, title, description, className, ...props }: FeatureCardProps & React.HTMLAttributes<HTMLDivElement>) {
+function FeatureCard({ icon, title, description, detailedDescription, className, ...props }: FeatureCardProps & React.HTMLAttributes<HTMLDivElement>) {
+  const [isHovering, setIsHovering] = useState(false);
+
   return (
-    <div 
-      className={cn(
-        "relative p-6 rounded-xl bg-card-gradient border border-zinc-800 hover:border-zeno-purple/50 transition-all group hover-lift",
-        className
-      )}
-      {...props}
-    >
-      <div className="p-3 mb-4 rounded-lg bg-zinc-800/50 w-fit group-hover:bg-zeno-purple/20 transition-colors">
-        {icon}
-      </div>
-      <h3 className="font-bold text-xl mb-2 group-hover:text-white transition-colors">{title}</h3>
-      <p className="text-zinc-400 group-hover:text-zinc-300 transition-colors">{description}</p>
-      <div className="absolute -inset-px rounded-xl opacity-0 group-hover:opacity-100 bg-gradient-to-r from-zeno-purple/10 to-zeno-blue/10 blur-lg transition-opacity"></div>
-    </div>
+    <Tooltip open={isHovering}>
+      <TooltipTrigger asChild>
+        <div 
+          className={cn(
+            "relative p-6 rounded-xl bg-card-gradient border border-zinc-800 hover:border-zeno-purple/50 transition-all group hover-lift",
+            className
+          )}
+          onMouseEnter={() => setIsHovering(true)}
+          onMouseLeave={() => setIsHovering(false)}
+          {...props}
+        >
+          <div className="p-3 mb-4 rounded-lg bg-zinc-800/50 w-fit group-hover:bg-zeno-purple/20 transition-colors">
+            {icon}
+          </div>
+          <h3 className="font-bold text-xl mb-2 group-hover:text-white transition-colors">{title}</h3>
+          <p className="text-zinc-400 group-hover:text-zinc-300 transition-colors">{description}</p>
+          <div className="absolute -inset-px rounded-xl opacity-0 group-hover:opacity-100 bg-gradient-to-r from-zeno-purple/10 to-zeno-blue/10 blur-lg transition-opacity"></div>
+        </div>
+      </TooltipTrigger>
+      <TooltipContent 
+        side="right" 
+        className="max-w-xs p-4 bg-zinc-900/95 border-zinc-700 backdrop-blur-lg animate-fade-in"
+      >
+        <p className="text-sm">{detailedDescription}</p>
+      </TooltipContent>
+    </Tooltip>
   );
 }
 
