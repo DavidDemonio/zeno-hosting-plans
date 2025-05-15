@@ -6,6 +6,12 @@ interface FooterProps {
   language: string;
 }
 
+interface LinkItem {
+  name: string;
+  path: string;
+  external?: boolean; // Make external optional
+}
+
 export function Footer({ language }: FooterProps) {
   const currentYear = new Date().getFullYear();
 
@@ -18,21 +24,21 @@ export function Footer({ language }: FooterProps) {
         { name: "VPS Hosting", path: "/services/vps" },
         { name: "Servidores dedicados", path: "/services/dedicated" },
         { name: "Discord Bot Hosting", path: "/services/discord" }
-      ],
+      ] as LinkItem[],
       company: "Empresa",
       companyLinks: [
         { name: "Sobre nosotros", path: "/about" },
         { name: "Contacto", path: "/contact" },
         { name: "Panel", path: "https://panel.zenoscale.es", external: true },
         { name: "Partners", path: "/partners" }
-      ],
+      ] as LinkItem[],
       legal: "Legal",
       legalLinks: [
         { name: "Política de Privacidad", path: "/privacy" },
         { name: "Términos de Servicio", path: "/terms" },
         { name: "Reembolsos", path: "/refunds" },
         { name: "DMCA", path: "/dmca" }
-      ],
+      ] as LinkItem[],
       copyright: "Todos los derechos reservados.",
       privacyPolicy: "Política de Privacidad",
       terms: "Términos de Servicio"
@@ -45,21 +51,21 @@ export function Footer({ language }: FooterProps) {
         { name: "VPS Hosting", path: "/services/vps" },
         { name: "Dedicated Servers", path: "/services/dedicated" },
         { name: "Discord Bot Hosting", path: "/services/discord" }
-      ],
+      ] as LinkItem[],
       company: "Company",
       companyLinks: [
         { name: "About Us", path: "/about" },
         { name: "Contact", path: "/contact" },
         { name: "Panel", path: "https://panel.zenoscale.es", external: true },
         { name: "Partners", path: "/partners" }
-      ],
+      ] as LinkItem[],
       legal: "Legal",
       legalLinks: [
         { name: "Privacy Policy", path: "/privacy" },
         { name: "Terms of Service", path: "/terms" },
         { name: "Refunds", path: "/refunds" },
         { name: "DMCA", path: "/dmca" }
-      ],
+      ] as LinkItem[],
       copyright: "All rights reserved.",
       privacyPolicy: "Privacy Policy",
       terms: "Terms of Service"
@@ -108,7 +114,7 @@ export function Footer({ language }: FooterProps) {
                 <FooterLink 
                   key={index} 
                   href={link.path} 
-                  external={link.external}
+                  external={link.external || false}
                 >
                   {link.name}
                 </FooterLink>
@@ -125,7 +131,7 @@ export function Footer({ language }: FooterProps) {
                 <FooterLink 
                   key={index} 
                   href={link.path}
-                  external={link.external}
+                  external={link.external || false}
                 >
                   {link.name}
                 </FooterLink>
@@ -142,7 +148,7 @@ export function Footer({ language }: FooterProps) {
                 <FooterLink 
                   key={index} 
                   href={link.path}
-                  external={link.external}
+                  external={link.external || false}
                 >
                   {link.name}
                 </FooterLink>
