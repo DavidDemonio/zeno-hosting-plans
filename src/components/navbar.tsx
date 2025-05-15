@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Logo } from '@/components/ui/logo';
 import { Button } from '@/components/ui/button';
 import { Menu, Server, Activity, MessageSquare, Globe } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 interface NavbarProps {
   language: string;
@@ -26,7 +27,9 @@ export function Navbar({ language, setLanguage }: NavbarProps) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex items-center">
-            <Logo className="hover:opacity-90 transition-opacity" />
+            <Link to="/">
+              <Logo className="hover:opacity-90 transition-opacity" />
+            </Link>
           </div>
           
           <div className="hidden md:flex items-center space-x-6">
@@ -48,18 +51,28 @@ export function Navbar({ language, setLanguage }: NavbarProps) {
               </button>
             </div>
             
-            <NavLink href="https://dash.zenoscale.es" external icon={<Server className="w-4 h-4 mr-1" />}>
+            <a href="https://dash.zenoscale.es" target="_blank" rel="noopener noreferrer" className="flex items-center text-zinc-300 hover:text-white transition-colors duration-200 text-sm font-medium group hover-button">
+              <span className="group-hover:text-zeno-purple transition-colors"><Server className="w-4 h-4 mr-1" /></span>
               {language === 'es' ? 'Acceso plataforma' : 'Platform Access'}
-            </NavLink>
-            <NavLink href="https://status.zenoscale.es" external icon={<Activity className="w-4 h-4 mr-1" />}>Status</NavLink>
-            <NavLink href="https://panel.zenoscale.es" external icon={<Server className="w-4 h-4 mr-1" />}>Panel</NavLink>
-            <NavLink href="https://discord.zenoscale.es" external icon={<MessageSquare className="w-4 h-4 mr-1" />}>Discord</NavLink>
-            <Button 
-              className="bg-gradient-to-r from-zeno-purple to-zeno-blue hover:opacity-90 transition-all text-white hover:glow"
-              onClick={() => window.location.href = "https://dash.zenoscale.es"}
+            </a>
+            <a href="https://status.zenoscale.es" target="_blank" rel="noopener noreferrer" className="flex items-center text-zinc-300 hover:text-white transition-colors duration-200 text-sm font-medium group hover-button">
+              <span className="group-hover:text-zeno-purple transition-colors"><Activity className="w-4 h-4 mr-1" /></span>
+              Status
+            </a>
+            <a href="https://panel.zenoscale.es" target="_blank" rel="noopener noreferrer" className="flex items-center text-zinc-300 hover:text-white transition-colors duration-200 text-sm font-medium group hover-button">
+              <span className="group-hover:text-zeno-purple transition-colors"><Server className="w-4 h-4 mr-1" /></span>
+              Panel
+            </a>
+            <a href="https://discord.zenoscale.es" target="_blank" rel="noopener noreferrer" className="flex items-center text-zinc-300 hover:text-white transition-colors duration-200 text-sm font-medium group hover-button">
+              <span className="group-hover:text-zeno-purple transition-colors"><MessageSquare className="w-4 h-4 mr-1" /></span>
+              Discord
+            </a>
+            <a 
+              href="https://dash.zenoscale.es" 
+              className="inline-block bg-gradient-to-r from-zeno-purple to-zeno-blue hover:opacity-90 transition-all text-white hover:glow rounded-md px-4 py-2 text-sm font-medium"
             >
               {language === 'es' ? 'Comenzar' : 'Start'}
-            </Button>
+            </a>
           </div>
           
           <div className="flex items-center md:hidden">
@@ -96,19 +109,29 @@ export function Navbar({ language, setLanguage }: NavbarProps) {
             <MobileNavLink href="#pricing" icon={<Activity className="w-4 h-4 mr-2" />}>
               {language === 'es' ? 'Planes' : 'Plans'}
             </MobileNavLink>
-            <MobileNavLink href="https://dash.zenoscale.es" external icon={<Server className="w-4 h-4 mr-2" />}>
+            <a href="https://dash.zenoscale.es" target="_blank" rel="noopener noreferrer" className="flex items-center py-2 px-3 text-base font-medium text-zinc-300 hover:text-white transition-colors duration-200">
+              <span className="text-zeno-purple"><Server className="w-4 h-4 mr-2" /></span>
               {language === 'es' ? 'Acceso plataforma' : 'Platform Access'}
-            </MobileNavLink>
-            <MobileNavLink href="https://status.zenoscale.es" external icon={<Activity className="w-4 h-4 mr-2" />}>Status</MobileNavLink>
-            <MobileNavLink href="https://panel.zenoscale.es" external icon={<Server className="w-4 h-4 mr-2" />}>Panel</MobileNavLink>
-            <MobileNavLink href="https://discord.zenoscale.es" external icon={<MessageSquare className="w-4 h-4 mr-2" />}>Discord</MobileNavLink>
+            </a>
+            <a href="https://status.zenoscale.es" target="_blank" rel="noopener noreferrer" className="flex items-center py-2 px-3 text-base font-medium text-zinc-300 hover:text-white transition-colors duration-200">
+              <span className="text-zeno-purple"><Activity className="w-4 h-4 mr-2" /></span>
+              Status
+            </a>
+            <a href="https://panel.zenoscale.es" target="_blank" rel="noopener noreferrer" className="flex items-center py-2 px-3 text-base font-medium text-zinc-300 hover:text-white transition-colors duration-200">
+              <span className="text-zeno-purple"><Server className="w-4 h-4 mr-2" /></span>
+              Panel
+            </a>
+            <a href="https://discord.zenoscale.es" target="_blank" rel="noopener noreferrer" className="flex items-center py-2 px-3 text-base font-medium text-zinc-300 hover:text-white transition-colors duration-200">
+              <span className="text-zeno-purple"><MessageSquare className="w-4 h-4 mr-2" /></span>
+              Discord
+            </a>
             <div className="pt-2">
-              <Button 
-                className="w-full bg-gradient-to-r from-zeno-purple to-zeno-blue hover:opacity-90 transition-all text-white"
-                onClick={() => window.location.href = "https://dash.zenoscale.es"}
+              <a 
+                href="https://dash.zenoscale.es"
+                className="block w-full text-center bg-gradient-to-r from-zeno-purple to-zeno-blue hover:opacity-90 transition-all text-white py-2 px-4 rounded-md font-medium"
               >
                 {language === 'es' ? 'Comenzar' : 'Start'}
-              </Button>
+              </a>
             </div>
           </div>
         </div>
@@ -117,13 +140,11 @@ export function Navbar({ language, setLanguage }: NavbarProps) {
   );
 }
 
-function NavLink({ href, children, icon, external = false }: { href: string; children: React.ReactNode; icon: React.ReactNode; external?: boolean }) {
+function NavLink({ href, children, icon }: { href: string; children: React.ReactNode; icon: React.ReactNode }) {
   return (
     <a
       href={href}
       className="flex items-center text-zinc-300 hover:text-white transition-colors duration-200 text-sm font-medium group hover-button"
-      target={external ? "_blank" : undefined}
-      rel={external ? "noopener noreferrer" : undefined}
     >
       <span className="group-hover:text-zeno-purple transition-colors">{icon}</span>
       {children}
@@ -131,13 +152,11 @@ function NavLink({ href, children, icon, external = false }: { href: string; chi
   );
 }
 
-function MobileNavLink({ href, children, icon, external = false }: { href: string; children: React.ReactNode; icon: React.ReactNode; external?: boolean }) {
+function MobileNavLink({ href, children, icon }: { href: string; children: React.ReactNode; icon: React.ReactNode }) {
   return (
     <a
       href={href}
       className="flex items-center py-2 px-3 text-base font-medium text-zinc-300 hover:text-white transition-colors duration-200"
-      target={external ? "_blank" : undefined}
-      rel={external ? "noopener noreferrer" : undefined}
     >
       <span className="text-zeno-purple">{icon}</span>
       {children}

@@ -10,14 +10,14 @@ interface HeroSectionProps {
 export function HeroSection({ language }: HeroSectionProps) {
   const content = {
     es: {
-      title: "Soluciones de Hosting",
-      highlight: "Profesionales",
+      title: "Hosting de Alto Rendimiento",
+      highlight: "ZenoScale",
       description: "Hosting de alto rendimiento con configuración instantánea y soporte 24/7. Ideal para gaming, aplicaciones, y proyectos de cualquier escala.",
       primaryButton: "Comenzar Ahora",
       secondaryButton: "Más Información"
     },
     en: {
-      title: "Professional",
+      title: "High Performance",
       highlight: "Hosting Solutions",
       description: "High-performance hosting with instant setup and 24/7 support. Ideal for gaming, applications, and projects of any scale.",
       primaryButton: "Start Now",
@@ -40,11 +40,11 @@ export function HeroSection({ language }: HeroSectionProps) {
         </div>
         
         <div className="overflow-visible mb-8">
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight stagger-animation stagger-2 text-center">
-            <div className="mb-2 inline-block">
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight stagger-animation stagger-2 text-center">
+            <div className="mb-2">
               <span className="gradient-text glow-text">{highlight}</span>
             </div>
-            <div className="mt-2 inline-block">
+            <div className="mt-2">
               <span className="text-white">{title}</span>
             </div>
           </h1>
