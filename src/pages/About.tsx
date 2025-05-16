@@ -1,3 +1,4 @@
+
 import { StarsBackground } from "@/components/ui/stars-background";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
@@ -111,31 +112,8 @@ const About = () => {
   const validLanguage = language === 'en' ? 'en' : 'es';
   const pageContent = content[validLanguage];
   
-  const container = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.3,
-      },
-    },
-  };
-  
-  const item = {
-    hidden: { opacity: 0, y: 20 },
-    show: { 
-      opacity: 1, 
-      y: 0,
-      transition: {
-        duration: 0.6,
-        ease: [0.43, 0.13, 0.23, 0.96],
-      }
-    },
-  };
-
   return (
-    <div className="min-h-screen relative">
+    <div className="min-h-screen relative bg-[#070c14] text-white overflow-x-hidden">
       <StarsBackground density={100} />
       
       <Navbar language={language} setLanguage={setLanguage} />
@@ -167,20 +145,6 @@ const About = () => {
               >
                 {pageContent.description}
               </motion.p>
-              
-              <motion.button
-                className="mt-6 bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 rounded-lg px-6 py-2 text-sm font-medium transition-all relative z-10"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                initial={{ opacity: 1 }}
-                animate={{ opacity: 1 }}
-                onClick={() => toast({
-                  title: language === 'es' ? "¡Gracias por tu interés!" : "Thank you for your interest!",
-                  description: language === 'es' ? "Estamos construyendo una comunidad de clientes satisfechos." : "We are building a community of satisfied customers."
-                })}
-              >
-                {language === 'es' ? 'Descubre más' : 'Learn more'}
-              </motion.button>
             </div>
           </div>
         </section>
@@ -190,7 +154,7 @@ const About = () => {
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
               <motion.div 
-                className="bg-zinc-800/50 rounded-xl p-8 border border-zinc-700 backdrop-blur-sm hover-lift relative z-10"
+                className="bg-zinc-800/50 rounded-xl p-8 border border-zinc-700 backdrop-blur-sm relative z-10"
                 initial={{ opacity: 0, x: -50 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6 }}
@@ -204,7 +168,7 @@ const About = () => {
               </motion.div>
               
               <motion.div 
-                className="bg-zinc-800/50 rounded-xl p-8 border border-zinc-700 backdrop-blur-sm hover-lift relative z-10"
+                className="bg-zinc-800/50 rounded-xl p-8 border border-zinc-700 backdrop-blur-sm relative z-10"
                 initial={{ opacity: 0, x: 50 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
@@ -224,7 +188,7 @@ const About = () => {
         <section className="py-8 md:py-12">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div 
-              className="bg-zinc-800/30 rounded-xl overflow-hidden border border-zinc-700 shadow-lg relative z-10"
+              className="rounded-xl overflow-hidden border border-zinc-700 shadow-lg relative z-10"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
@@ -237,7 +201,7 @@ const About = () => {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end">
                   <div className="p-6 md:p-8">
-                    <h3 className="text-xl md:text-2xl font-bold text-white mb-2 gradient-text glow-text">
+                    <h3 className="text-xl md:text-2xl font-bold text-white mb-2 gradient-text">
                       {language === 'es' ? 'Infraestructura de Alto Rendimiento' : 'High-Performance Infrastructure'}
                     </h3>
                     <p className="text-zinc-100 text-sm md:text-base max-w-2xl">
@@ -252,7 +216,7 @@ const About = () => {
           </div>
         </section>
         
-        {/* History Section */}
+        {/* History Section with Timeline */}
         <section className="py-12 md:py-16">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div 
@@ -261,37 +225,12 @@ const About = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <h2 className="text-3xl font-bold mb-6 gradient-text glow-text">{pageContent.history}</h2>
+              <h2 className="text-3xl font-bold mb-6 gradient-text">{pageContent.history}</h2>
               <p className="text-lg text-zinc-300 max-w-3xl mx-auto">{pageContent.historyText}</p>
             </motion.div>
-
-            {/* Added image content to fill gap */}
-            <motion.div
-              className="relative mx-auto my-8 max-w-2xl"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8 }}
-            >
-              <div className="bg-zinc-800/30 rounded-xl overflow-hidden border border-zinc-700 p-4">
-                <img 
-                  src="/lovable-uploads/d2aa2bfa-9b68-4ece-9af0-da13bdef2ee1.png"
-                  alt="ZenoScale Timeline" 
-                  className="w-full h-auto rounded-lg"
-                />
-                <div className="text-center mt-4">
-                  <h3 className="text-lg font-semibold gradient-text">
-                    {language === 'es' ? 'Crecimiento desde 2025' : 'Growth Since 2025'}
-                  </h3>
-                  <p className="text-zinc-300 text-sm mt-2">
-                    {language === 'es' 
-                      ? 'Nuestro compromiso con la innovación impulsa nuestro crecimiento continuo'
-                      : 'Our commitment to innovation drives our continuous growth'}
-                  </p>
-                </div>
-              </div>
-            </motion.div>
             
-            <div className="relative py-8">
+            {/* Timeline visualization */}
+            <div className="relative py-8 mt-12">
               <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gradient-to-b from-zeno-purple to-zeno-blue"></div>
               
               <div className="relative z-10">
@@ -333,7 +272,7 @@ const About = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.7 }}
                 >
-                  <div className={`bg-zinc-800 border border-zinc-700 p-6 rounded-xl ${isMobile ? 'mb-4 w-full' : 'ml-0 mr-6 md:text-right md:w-[calc(50%-3rem)] relative z-10'}`}>
+                  <div className={`bg-zinc-800 border border-zinc-700 p-6 rounded-xl ${isMobile ? 'w-full' : 'ml-0 mr-6 md:text-right md:w-[calc(50%-3rem)] relative z-10'}`}>
                     <h3 className="text-xl font-bold mb-2">Junio 2025</h3>
                     <p className="text-zinc-300">Inicio de los servicios de Bare Metal para aplicaciones con altos requisitos de rendimiento.</p>
                   </div>
@@ -363,20 +302,25 @@ const About = () => {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6 }}
             >
-              <h2 className="text-3xl font-bold mb-6 gradient-text glow-text">{pageContent.valuesTitle}</h2>
+              <h2 className="text-3xl font-bold mb-6 gradient-text">{pageContent.valuesTitle}</h2>
             </motion.div>
             
             <motion.div 
               className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
-              variants={container}
-              initial="hidden"
-              animate="show"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ 
+                duration: 0.8,
+                staggerChildren: 0.1
+              }}
             >
               {pageContent.values.map((value, index) => (
                 <motion.div 
                   key={index}
-                  variants={item}
-                  className="bg-zinc-800/50 rounded-xl p-6 border border-zinc-700 backdrop-blur-sm hover-lift group hover:border-zeno-purple/50 transition-all z-10 relative"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="bg-zinc-800/50 rounded-xl p-6 border border-zinc-700 backdrop-blur-sm group hover:border-zeno-purple/50 transition-all z-10 relative"
                   whileHover={{ 
                     y: -5, 
                     boxShadow: "0 10px 25px -5px rgba(155, 135, 245, 0.2)"
@@ -402,13 +346,13 @@ const About = () => {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6 }}
             >
-              <h2 className="text-3xl font-bold mb-6 gradient-text glow-text">{pageContent.team}</h2>
+              <h2 className="text-3xl font-bold mb-6 gradient-text">{pageContent.team}</h2>
               <p className="text-lg text-zinc-300 max-w-3xl mx-auto">{pageContent.teamText}</p>
             </motion.div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <motion.div 
-                className="bg-zinc-800 rounded-xl overflow-hidden border border-zinc-700 hover-lift relative z-10"
+                className="bg-zinc-800 rounded-xl overflow-hidden border border-zinc-700 relative z-10"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
@@ -435,7 +379,7 @@ const About = () => {
               </motion.div>
               
               <motion.div 
-                className="bg-zinc-800 rounded-xl overflow-hidden border border-zinc-700 hover-lift relative z-10"
+                className="bg-zinc-800 rounded-xl overflow-hidden border border-zinc-700 relative z-10"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.3 }}
@@ -473,7 +417,7 @@ const About = () => {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6 }}
             >
-              <h2 className="text-3xl font-bold mb-6 gradient-text glow-text">
+              <h2 className="text-3xl font-bold mb-6 gradient-text">
                 {language === 'es' ? 'Nuestras Tecnologías' : 'Our Technologies'}
               </h2>
               <p className="text-lg text-zinc-300 max-w-3xl mx-auto">
@@ -483,14 +427,14 @@ const About = () => {
               </p>
             </motion.div>
             
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4 md:gap-6">
               {[
-                { icon: <Server className="h-8 w-8" />, name: "AMD EPYC" },
-                { icon: <Shield className="h-8 w-8" />, name: "Firewall" },
-                { icon: <Rocket className="h-8 w-8" />, name: "NVMe" },
-                { icon: <Globe className="h-8 w-8" />, name: "CDN" },
-                { icon: <Clock className="h-8 w-8" />, name: "99.9% Uptime" },
-                { icon: <BarChart className="h-8 w-8" />, name: "Analytics" }
+                { icon: Server, name: "AMD EPYC" },
+                { icon: Shield, name: "Firewall" },
+                { icon: Rocket, name: "NVMe" },
+                { icon: Globe, name: "CDN" },
+                { icon: Clock, name: "99.9% Uptime" },
+                { icon: BarChart, name: "Analytics" }
               ].map((tech, i) => (
                 <motion.div
                   key={i}
@@ -508,7 +452,7 @@ const About = () => {
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}
                   >
-                    {tech.icon}
+                    <tech.icon className="h-6 w-6" />
                   </motion.div>
                   <h3 className="text-sm font-semibold">{tech.name}</h3>
                 </motion.div>
@@ -517,6 +461,7 @@ const About = () => {
           </div>
         </section>
         
+        {/* Use AboutSection component */}
         <AboutSection language={language} />
       </main>
       

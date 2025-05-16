@@ -30,7 +30,7 @@ export function HeroSection({ language }: HeroSectionProps) {
   
   const { title, highlight, description, primaryButton, secondaryButton } = content[validLanguage];
 
-  // Updated to scroll to pricing section rather than using an anchor
+  // Scroll to pricing section
   const scrollToPricing = (e: React.MouseEvent) => {
     e.preventDefault();
     const pricingSection = document.getElementById('pricing');
@@ -66,7 +66,7 @@ export function HeroSection({ language }: HeroSectionProps) {
         <div className="flex flex-col sm:flex-row justify-center gap-4 stagger-animation stagger-4">
           <Button 
             size="lg" 
-            className="bg-gradient-to-r from-zeno-purple to-zeno-blue hover-glow transition-all text-white relative overflow-hidden group hover-lift z-10"
+            className="bg-gradient-to-r from-zeno-purple to-zeno-blue transition-all text-white relative overflow-hidden group z-10"
             onClick={() => window.location.href = "https://dash.zenoscale.es"}
           >
             <span className="relative z-10 flex items-center">
@@ -78,7 +78,7 @@ export function HeroSection({ language }: HeroSectionProps) {
           <Button 
             size="lg" 
             variant="outline" 
-            className="border-zinc-700 text-white hover:bg-zinc-800 transition-all group hover-lift hover-button z-10"
+            className="border-zinc-700 text-white hover:bg-zinc-800 transition-all group z-10"
             onClick={scrollToPricing}
           >
             <span className="relative z-10 flex items-center">

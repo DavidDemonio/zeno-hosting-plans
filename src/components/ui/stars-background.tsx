@@ -56,6 +56,14 @@ export function StarsBackground({ className, density = 150 }: StarsBackgroundPro
           }}
         />
       ))}
+
+      <style jsx>{`
+        @keyframes twinkle {
+          0% { opacity: ${Math.random() * 0.3 + 0.3}; }
+          50% { opacity: ${Math.random() * 0.6 + 0.4}; }
+          100% { opacity: ${Math.random() * 0.3 + 0.3}; }
+        }
+      `}</style>
     </div>
   );
 }
