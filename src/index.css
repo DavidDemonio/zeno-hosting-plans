@@ -202,34 +202,34 @@
   }
 }
 
-/* Vertical shooting star animation - Updated */
+/* Vertical shooting star animation - Updated to reverse direction */
 @keyframes shooting-star-vertical {
   0% {
-    transform: translate(0, -20vh) scale(0);
+    transform: translate(0, 110vh) scale(0);
     opacity: 0;
   }
   10% {
-    transform: translate(0, -10vh) scale(1);
+    transform: translate(0, 90vh) scale(1);
     opacity: 0.7;
   }
   100% {
-    transform: translate(0, 110vh) scale(0.5);
+    transform: translate(0, -20vh) scale(0.5);
     opacity: 0;
   }
 }
 
-/* Horizontal shooting star animation - Updated */
+/* Horizontal shooting star animation - Updated to reverse direction */
 @keyframes shooting-star-horizontal {
   0% {
-    transform: translate(-10vw, -10vh) rotate(225deg) scale(0);
+    transform: translate(-110vw, 110vh) rotate(225deg) scale(0);
     opacity: 0;
   }
   10% {
-    transform: translate(-5vw, -5vh) rotate(225deg) scale(1);
+    transform: translate(-90vw, 90vh) rotate(225deg) scale(1);
     opacity: 0.7;
   }
   100% {
-    transform: translate(-110vw, 110vh) rotate(225deg) scale(0.5);
+    transform: translate(10vw, -10vh) rotate(225deg) scale(0.5);
     opacity: 0;
   }
 }
@@ -238,27 +238,28 @@
   position: fixed;
   top: 0;
   right: 0;
-  width: 100px;
-  height: 1px;
-  background: linear-gradient(to right, rgba(255,255,255,0.8), transparent);
+  width: 1px;
+  height: 100px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.8), transparent);
   border-radius: 50%;
-  animation: shooting-star-horizontal 5s linear infinite;
-  animation-delay: calc(var(--delay, 0) * 1s);
+  animation: shooting-star-horizontal 8s linear infinite;
+  animation-delay: calc(var(--delay, 0) * 10s);
   z-index: 1;
   pointer-events: none;
   opacity: 0.3;
   filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.7));
-  left: calc(20% + (var(--offset, 0) * 30%));
+  left: calc(10% + (var(--offset, 0) * 80%));
 }
 
 .shooting-star.vertical {
-  top: -10vh;
-  left: calc(20% + (var(--offset, 0) * 60%));
+  top: auto;
+  bottom: -10vh;
+  left: calc(10% + (var(--offset, 0) * 80%));
   width: 1px;
   height: 80px;
-  background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.8));
-  animation: shooting-star-vertical 8s linear infinite;
-  animation-delay: calc(var(--delay, 0) * 3s);
+  background: linear-gradient(to top, transparent, rgba(255,255,255,0.8));
+  animation: shooting-star-vertical 12s linear infinite;
+  animation-delay: calc(var(--delay, 0) * 8s);
   --offset: 0;
   filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.7));
 }
@@ -266,7 +267,7 @@
 .shooting-star:before {
   content: '';
   position: absolute;
-  top: 0;
+  bottom: 0;
   left: 0;
   width: 6px;
   height: 6px;
@@ -276,8 +277,8 @@
 }
 
 .shooting-star.vertical:before {
-  top: auto;
-  bottom: 0;
+  bottom: auto;
+  top: 0;
   right: calc(50% - 3px);
   width: 6px;
   height: 6px;

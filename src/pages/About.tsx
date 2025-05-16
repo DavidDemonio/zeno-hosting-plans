@@ -1,3 +1,4 @@
+
 import { StarsBackground } from "@/components/ui/stars-background";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
@@ -6,10 +7,12 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Users, Award, Globe, BarChart, Heart, Clock, Server, Shield, Rocket } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const About = () => {
   const [language, setLanguage] = useState('es');
   const { toast } = useToast();
+  const isMobile = useIsMobile();
   
   const content = {
     es: {
@@ -140,7 +143,7 @@ const About = () => {
       
       <main className="pt-28 pb-16">
         {/* Hero Section */}
-        <section className="py-16">
+        <section className="py-12 md:py-16">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
               <motion.h1 
@@ -167,7 +170,7 @@ const About = () => {
               </motion.p>
               
               <motion.button
-                className="mt-6 bg-zinc-800/50 hover:bg-zinc-700/50 border border-zinc-700 rounded-lg px-6 py-2 text-sm font-medium transition-all"
+                className="mt-6 bg-zinc-800/50 hover:bg-zinc-700/50 border border-zinc-700 rounded-lg px-6 py-2 text-sm font-medium transition-all z-10 relative"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => toast({
@@ -182,11 +185,11 @@ const About = () => {
         </section>
         
         {/* Mission & Vision Section */}
-        <section className="py-12 bg-zinc-800/20">
+        <section className="py-8 md:py-12 bg-zinc-800/20">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
               <motion.div 
-                className="bg-zinc-800/50 rounded-xl p-8 border border-zinc-700 backdrop-blur-sm hover-lift"
+                className="bg-zinc-800/50 rounded-xl p-8 border border-zinc-700 backdrop-blur-sm hover-lift z-10 relative"
                 initial={{ opacity: 0, x: -50 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6 }}
@@ -200,7 +203,7 @@ const About = () => {
               </motion.div>
               
               <motion.div 
-                className="bg-zinc-800/50 rounded-xl p-8 border border-zinc-700 backdrop-blur-sm hover-lift"
+                className="bg-zinc-800/50 rounded-xl p-8 border border-zinc-700 backdrop-blur-sm hover-lift z-10 relative"
                 initial={{ opacity: 0, x: 50 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
@@ -216,11 +219,11 @@ const About = () => {
           </div>
         </section>
         
-        {/* Data Center Image Section */}
-        <section className="py-12">
+        {/* Infrastructure Image Section */}
+        <section className="py-8 md:py-12">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div 
-              className="bg-zinc-800/30 rounded-xl overflow-hidden border border-zinc-700 shadow-lg"
+              className="bg-zinc-800/30 rounded-xl overflow-hidden border border-zinc-700 shadow-lg z-10 relative"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
@@ -249,7 +252,7 @@ const About = () => {
         </section>
         
         {/* History Section */}
-        <section className="py-16">
+        <section className="py-12 md:py-16">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div 
               className="text-center mb-12"
@@ -266,49 +269,49 @@ const About = () => {
               
               <div className="relative z-10">
                 <motion.div 
-                  className="flex items-center mb-12"
+                  className="flex flex-col md:flex-row items-center mb-12"
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.3 }}
                 >
-                  <div className="bg-zinc-800 border border-zinc-700 p-6 rounded-xl ml-6 md:ml-0 md:mr-6 md:text-right md:w-[calc(50%-3rem)]">
+                  <div className={`bg-zinc-800 border border-zinc-700 p-6 rounded-xl ${isMobile ? 'mb-4 w-full' : 'ml-0 mr-6 md:text-right md:w-[calc(50%-3rem)] relative z-10'}`}>
                     <h3 className="text-xl font-bold mb-2">Abril 2025</h3>
                     <p className="text-zinc-300">Lanzamiento de ZenoScale con servicios de Game Hosting para Minecraft y otros juegos.</p>
                   </div>
                   <motion.div 
-                    className="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 rounded-full bg-zeno-purple"
+                    className={`absolute left-1/2 transform -translate-x-1/2 w-4 h-4 rounded-full bg-zeno-purple ${isMobile ? 'top-4' : ''}`}
                     whileHover={{ scale: 1.5, boxShadow: "0 0 15px 5px rgba(155, 135, 245, 0.5)" }}
                   ></motion.div>
                 </motion.div>
                 
                 <motion.div 
-                  className="flex items-center mb-12 justify-end"
+                  className={`flex flex-col md:flex-row items-center mb-12 ${isMobile ? '' : 'justify-end'}`}
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.5 }}
                 >
-                  <div className="bg-zinc-800 border border-zinc-700 p-6 rounded-xl mr-6 md:mr-0 md:ml-6 md:w-[calc(50%-3rem)]">
+                  <div className={`bg-zinc-800 border border-zinc-700 p-6 rounded-xl ${isMobile ? 'mb-4 w-full' : 'mr-0 ml-6 md:w-[calc(50%-3rem)] relative z-10'}`}>
                     <h3 className="text-xl font-bold mb-2">Mayo 2025</h3>
                     <p className="text-zinc-300">Expansión a Web Hosting, automatizaciones y servicios VPS para desarrolladores y empresas.</p>
                   </div>
                   <motion.div 
-                    className="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 rounded-full bg-zeno-blue"
+                    className={`absolute left-1/2 transform -translate-x-1/2 w-4 h-4 rounded-full bg-zeno-blue ${isMobile ? 'top-4' : ''}`}
                     whileHover={{ scale: 1.5, boxShadow: "0 0 15px 5px rgba(51, 195, 240, 0.5)" }}
                   ></motion.div>
                 </motion.div>
                 
                 <motion.div 
-                  className="flex items-center"
+                  className="flex flex-col md:flex-row items-center"
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.7 }}
                 >
-                  <div className="bg-zinc-800 border border-zinc-700 p-6 rounded-xl ml-6 md:ml-0 md:mr-6 md:text-right md:w-[calc(50%-3rem)]">
+                  <div className={`bg-zinc-800 border border-zinc-700 p-6 rounded-xl ${isMobile ? 'mb-4 w-full' : 'ml-0 mr-6 md:text-right md:w-[calc(50%-3rem)] relative z-10'}`}>
                     <h3 className="text-xl font-bold mb-2">Junio 2025</h3>
                     <p className="text-zinc-300">Inicio de los servicios de Bare Metal para aplicaciones con altos requisitos de rendimiento.</p>
                   </div>
                   <motion.div 
-                    className="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 rounded-full bg-gradient-to-r from-zeno-purple to-zeno-blue"
+                    className={`absolute left-1/2 transform -translate-x-1/2 w-4 h-4 rounded-full bg-gradient-to-r from-zeno-purple to-zeno-blue ${isMobile ? 'top-4' : ''}`}
                     animate={{ 
                       boxShadow: ["0 0 5px 0px rgba(155, 135, 245, 0.5)", "0 0 15px 5px rgba(51, 195, 240, 0.5)", "0 0 5px 0px rgba(155, 135, 245, 0.5)"],
                     }}
@@ -325,7 +328,7 @@ const About = () => {
         </section>
         
         {/* Values Section */}
-        <section className="py-16 bg-zinc-800/20">
+        <section className="py-12 md:py-16 bg-zinc-800/20">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div 
               className="text-center mb-12"
@@ -337,7 +340,7 @@ const About = () => {
             </motion.div>
             
             <motion.div 
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
               variants={container}
               initial="hidden"
               animate="show"
@@ -346,7 +349,7 @@ const About = () => {
                 <motion.div 
                   key={index}
                   variants={item}
-                  className="bg-zinc-800/50 rounded-xl p-6 border border-zinc-700 backdrop-blur-sm hover-lift group hover:border-zeno-purple/50 transition-all"
+                  className="bg-zinc-800/50 rounded-xl p-6 border border-zinc-700 backdrop-blur-sm hover-lift group hover:border-zeno-purple/50 transition-all z-10 relative"
                   whileHover={{ 
                     y: -5, 
                     boxShadow: "0 10px 25px -5px rgba(155, 135, 245, 0.2)"
@@ -364,7 +367,7 @@ const About = () => {
         </section>
         
         {/* Team Section */}
-        <section className="py-16">
+        <section className="py-12 md:py-16">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div 
               className="text-center mb-12"
@@ -378,7 +381,7 @@ const About = () => {
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <motion.div 
-                className="bg-zinc-800/50 rounded-xl overflow-hidden border border-zinc-700 hover-lift"
+                className="bg-zinc-800/50 rounded-xl overflow-hidden border border-zinc-700 hover-lift z-10 relative"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
@@ -405,7 +408,7 @@ const About = () => {
               </motion.div>
               
               <motion.div 
-                className="bg-zinc-800/50 rounded-xl overflow-hidden border border-zinc-700 hover-lift"
+                className="bg-zinc-800/50 rounded-xl overflow-hidden border border-zinc-700 hover-lift z-10 relative"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.3 }}
@@ -435,7 +438,7 @@ const About = () => {
         </section>
         
         {/* Tech Stack Section */}
-        <section className="py-16 bg-zinc-800/20">
+        <section className="py-12 md:py-16 bg-zinc-800/20">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div 
               className="text-center mb-12"
@@ -464,7 +467,7 @@ const About = () => {
               ].map((tech, i) => (
                 <motion.div
                   key={i}
-                  className="bg-zinc-800/50 rounded-lg p-4 flex flex-col items-center justify-center text-center border border-zinc-700 hover:border-zeno-purple/30"
+                  className="bg-zinc-800/50 rounded-lg p-4 flex flex-col items-center justify-center text-center border border-zinc-700 hover:border-zeno-purple/30 z-10 relative"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.1 * i, duration: 0.5 }}

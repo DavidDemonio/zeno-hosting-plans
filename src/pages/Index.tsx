@@ -24,10 +24,10 @@ const Index = () => {
     // Create shooting stars with random positions and timing
     const stars = Array.from({ length: 5 }, (_, i) => ({
       id: i,
-      delay: Math.random() * 20,
+      delay: Math.random() * 30, // More scattered delays
       duration: Math.random() * 3 + 4,
-      top: `${Math.random() * 30}vh`,
-      offset: Math.random() * 5 - 2
+      top: `${Math.random() * 70}vh`, // More varied positions
+      offset: Math.random() * 8 - 4 // More spread across the screen
     }));
     
     setShootingStars(stars);
@@ -82,7 +82,7 @@ const Index = () => {
     <div className="min-h-screen relative">
       <StarsBackground density={150} />
       
-      {/* Shooting stars */}
+      {/* Shooting stars - updated to come from different positions and go upward */}
       {shootingStars.map(star => (
         <div
           key={star.id}
