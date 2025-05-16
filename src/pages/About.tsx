@@ -1,4 +1,3 @@
-
 import { StarsBackground } from "@/components/ui/stars-background";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
@@ -170,9 +169,11 @@ const About = () => {
               </motion.p>
               
               <motion.button
-                className="mt-6 bg-zinc-800/50 hover:bg-zinc-700/50 border border-zinc-700 rounded-lg px-6 py-2 text-sm font-medium transition-all z-10 relative"
+                className="mt-6 bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 rounded-lg px-6 py-2 text-sm font-medium transition-all relative z-10"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
+                initial={{ opacity: 1 }}
+                animate={{ opacity: 1 }}
                 onClick={() => toast({
                   title: language === 'es' ? "¡Gracias por tu interés!" : "Thank you for your interest!",
                   description: language === 'es' ? "Estamos construyendo una comunidad de clientes satisfechos." : "We are building a community of satisfied customers."
@@ -189,7 +190,7 @@ const About = () => {
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
               <motion.div 
-                className="bg-zinc-800/50 rounded-xl p-8 border border-zinc-700 backdrop-blur-sm hover-lift z-10 relative"
+                className="bg-zinc-800/50 rounded-xl p-8 border border-zinc-700 backdrop-blur-sm hover-lift relative z-10"
                 initial={{ opacity: 0, x: -50 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6 }}
@@ -203,7 +204,7 @@ const About = () => {
               </motion.div>
               
               <motion.div 
-                className="bg-zinc-800/50 rounded-xl p-8 border border-zinc-700 backdrop-blur-sm hover-lift z-10 relative"
+                className="bg-zinc-800/50 rounded-xl p-8 border border-zinc-700 backdrop-blur-sm hover-lift relative z-10"
                 initial={{ opacity: 0, x: 50 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
@@ -223,7 +224,7 @@ const About = () => {
         <section className="py-8 md:py-12">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div 
-              className="bg-zinc-800/30 rounded-xl overflow-hidden border border-zinc-700 shadow-lg z-10 relative"
+              className="bg-zinc-800/30 rounded-xl overflow-hidden border border-zinc-700 shadow-lg relative z-10"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
@@ -262,6 +263,32 @@ const About = () => {
             >
               <h2 className="text-3xl font-bold mb-6 gradient-text glow-text">{pageContent.history}</h2>
               <p className="text-lg text-zinc-300 max-w-3xl mx-auto">{pageContent.historyText}</p>
+            </motion.div>
+
+            {/* Added image content to fill gap */}
+            <motion.div
+              className="relative mx-auto my-8 max-w-2xl"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8 }}
+            >
+              <div className="bg-zinc-800/30 rounded-xl overflow-hidden border border-zinc-700 p-4">
+                <img 
+                  src="/lovable-uploads/d2aa2bfa-9b68-4ece-9af0-da13bdef2ee1.png"
+                  alt="ZenoScale Timeline" 
+                  className="w-full h-auto rounded-lg"
+                />
+                <div className="text-center mt-4">
+                  <h3 className="text-lg font-semibold gradient-text">
+                    {language === 'es' ? 'Crecimiento desde 2025' : 'Growth Since 2025'}
+                  </h3>
+                  <p className="text-zinc-300 text-sm mt-2">
+                    {language === 'es' 
+                      ? 'Nuestro compromiso con la innovación impulsa nuestro crecimiento continuo'
+                      : 'Our commitment to innovation drives our continuous growth'}
+                  </p>
+                </div>
+              </div>
             </motion.div>
             
             <div className="relative py-8">
@@ -381,7 +408,7 @@ const About = () => {
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <motion.div 
-                className="bg-zinc-800/50 rounded-xl overflow-hidden border border-zinc-700 hover-lift z-10 relative"
+                className="bg-zinc-800 rounded-xl overflow-hidden border border-zinc-700 hover-lift relative z-10"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
@@ -408,7 +435,7 @@ const About = () => {
               </motion.div>
               
               <motion.div 
-                className="bg-zinc-800/50 rounded-xl overflow-hidden border border-zinc-700 hover-lift z-10 relative"
+                className="bg-zinc-800 rounded-xl overflow-hidden border border-zinc-700 hover-lift relative z-10"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.3 }}
@@ -467,7 +494,7 @@ const About = () => {
               ].map((tech, i) => (
                 <motion.div
                   key={i}
-                  className="bg-zinc-800/50 rounded-lg p-4 flex flex-col items-center justify-center text-center border border-zinc-700 hover:border-zeno-purple/30 z-10 relative"
+                  className="bg-zinc-800 rounded-lg p-4 flex flex-col items-center justify-center text-center border border-zinc-700 hover:border-zeno-purple/30 relative z-10"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.1 * i, duration: 0.5 }}

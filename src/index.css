@@ -202,7 +202,7 @@
   }
 }
 
-/* Vertical shooting star animation - Updated to reverse direction */
+/* Vertical shooting star animation - Updated to reverse direction with stars falling upward */
 @keyframes shooting-star-vertical {
   0% {
     transform: translate(0, 110vh) scale(0);
@@ -240,7 +240,7 @@
   right: 0;
   width: 1px;
   height: 100px;
-  background: linear-gradient(to bottom, rgba(255,255,255,0.8), transparent);
+  background: linear-gradient(to top, rgba(255,255,255,0.8), transparent);
   border-radius: 50%;
   animation: shooting-star-horizontal 8s linear infinite;
   animation-delay: calc(var(--delay, 0) * 10s);
@@ -257,7 +257,7 @@
   left: calc(10% + (var(--offset, 0) * 80%));
   width: 1px;
   height: 80px;
-  background: linear-gradient(to top, transparent, rgba(255,255,255,0.8));
+  background: linear-gradient(to bottom, rgba(255,255,255,0.8), transparent);
   animation: shooting-star-vertical 12s linear infinite;
   animation-delay: calc(var(--delay, 0) * 8s);
   --offset: 0;
@@ -267,7 +267,7 @@
 .shooting-star:before {
   content: '';
   position: absolute;
-  bottom: 0;
+  top: 0;
   left: 0;
   width: 6px;
   height: 6px;
@@ -278,8 +278,9 @@
 
 .shooting-star.vertical:before {
   bottom: auto;
-  top: 0;
-  right: calc(50% - 3px);
+  top: auto;
+  bottom: 0;
+  left: 0;
   width: 6px;
   height: 6px;
 }

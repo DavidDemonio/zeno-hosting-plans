@@ -30,9 +30,13 @@ export function HeroSection({ language }: HeroSectionProps) {
   
   const { title, highlight, description, primaryButton, secondaryButton } = content[validLanguage];
 
+  // Updated to scroll to pricing section rather than using an anchor
   const scrollToPricing = (e: React.MouseEvent) => {
     e.preventDefault();
-    document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' });
+    const pricingSection = document.getElementById('pricing');
+    if (pricingSection) {
+      pricingSection.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   return (
