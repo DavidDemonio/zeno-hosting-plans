@@ -37,6 +37,15 @@ export function StarsBackground({ className, density = 150 }: StarsBackgroundPro
     setStars(newStars);
   }, [density]);
 
+  // Create CSS animation for twinkling stars
+  const twinkleAnimation = `
+    @keyframes twinkle {
+      0% { opacity: ${Math.random() * 0.3 + 0.3}; }
+      50% { opacity: ${Math.random() * 0.6 + 0.4}; }
+      100% { opacity: ${Math.random() * 0.3 + 0.3}; }
+    }
+  `;
+
   return (
     <div className={cn('fixed inset-0 z-0 overflow-hidden pointer-events-none bg-gradient-to-b from-[#050a12] via-[#070c14] to-[#0a0f18]', className)}>
       {stars.map((star) => (
@@ -57,13 +66,7 @@ export function StarsBackground({ className, density = 150 }: StarsBackgroundPro
         />
       ))}
 
-      <style jsx>{`
-        @keyframes twinkle {
-          0% { opacity: ${Math.random() * 0.3 + 0.3}; }
-          50% { opacity: ${Math.random() * 0.6 + 0.4}; }
-          100% { opacity: ${Math.random() * 0.3 + 0.3}; }
-        }
-      `}</style>
+      <style dangerouslySetInnerHTML={{ __html: twinkleAnimation }} />
     </div>
   );
 }
