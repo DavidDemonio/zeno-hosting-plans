@@ -9,6 +9,7 @@ import { Footer } from "@/components/footer";
 import { useEffect, useState } from "react";
 import { AboutSection } from "@/components/about-section";
 import { PanelShowcase } from "@/components/panel-showcase";
+import { TerminalSection } from "@/components/terminal-section";
 
 const Index = () => {
   const [shootingStars, setShootingStars] = useState<{ id: number, delay: number, duration: number, top: string, offset: number }[]>([]);
@@ -98,6 +99,7 @@ const Index = () => {
       <main>
         <HeroSection language={language} />
         <FeaturesSection language={language} />
+        <TerminalSection language={language} />
         <PricingSection language={language} />
         <AboutSection language={language} />
         <PanelShowcase language={language} />
