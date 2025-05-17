@@ -21,14 +21,15 @@ export function Terminal({ language }: TerminalProps) {
       output: (
         <div className="text-blue-400">
           {language === 'es' ? 
-            'Bienvenido a la terminal ZenoHost VPS. Escribe \'help\' para ver los comandos disponibles.' : 
-            'Welcome to ZenoHost VPS terminal. Type \'help\' to see available commands.'}
+            'Bienvenido a la terminal ZenoScale VPS. Escribe \'help\' para ver los comandos disponibles.' : 
+            'Welcome to ZenoScale VPS terminal. Type \'help\' to see available commands.'}
         </div>
       ),
     },
   ]);
   const [commandHistory, setCommandHistory] = useState<string[]>([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
+  const [pingInProgress, setPingInProgress] = useState(false);
   const terminalRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -99,23 +100,19 @@ export function Terminal({ language }: TerminalProps) {
     },
     specs: {
       execute: () => {
-        const logo = language === 'es' ? 
-          [
-            "    ███████╗███████╗███╗   ██╗ ██████╗     ",
-            "    ╚══███╔╝██╔════╝████╗  ██║██╔═══██╗    ",
-            "      ███╔╝ █████╗  ██╔██╗ ██║██║   ██║    ",
-            "     ███╔╝  ██╔══╝  ██║╚██╗██║██║   ██║    ",
-            "    ███████╗███████╗██║ ╚████║╚██████╔╝    ", 
-            "    ╚══════╝╚══════╝╚═╝  ╚═══╝ ╚═════╝     "
-          ] :
-          [
-            "    ███████╗███████╗███╗   ██╗ ██████╗     ",
-            "    ╚══███╔╝██╔════╝████╗  ██║██╔═══██╗    ",
-            "      ███╔╝ █████╗  ██╔██╗ ██║██║   ██║    ",
-            "     ███╔╝  ██╔══╝  ██║╚██╗██║██║   ██║    ",
-            "    ███████╗███████╗██║ ╚████║╚██████╔╝    ", 
-            "    ╚══════╝╚══════╝╚═╝  ╚═══╝ ╚═════╝     "
-          ];
+        // Improved ASCII Art for ZenoScale logo
+        const logo = [
+          "      ███████ ███████ ███    ██  ██████      ",
+          "         ███  ██      ████   ██ ██    ██     ",
+          "        ███   █████   ██ ██  ██ ██    ██     ",
+          "       ███    ██      ██  ██ ██ ██    ██     ",
+          "      ███████ ███████ ██   ████  ██████      ",
+          "                ███████  ██████  █████  ██      ███████ ",
+          "               ██      ██       ██   ██ ██      ██      ",
+          "              ███████ ██       ███████ ██      █████   ",
+          "                   ██ ██       ██   ██ ██      ██      ",
+          "              ███████  ██████  ██   ██ ███████ ███████ "
+        ];
 
         const specs = [
           `${language === 'es' ? 'Host: ZenoScale VPS' : 'Host: ZenoScale VPS'}`,
@@ -145,11 +142,11 @@ export function Terminal({ language }: TerminalProps) {
         
         return (
           <div className="text-white font-mono">
-            <div className="flex">
-              <div className="text-blue-400 mr-8">
+            <div className="flex flex-col md:flex-row">
+              <div className="text-blue-400 mr-2 md:mr-8">
                 {logo.map((line, i) => <div key={i}>{line}</div>)}
               </div>
-              <div className="flex flex-col justify-center">
+              <div className="flex flex-col justify-center mt-4 md:mt-0">
                 {selectedSpecs.map((spec, i) => (
                   <div key={i} className={i === 0 ? "text-blue-400 font-bold" : ""}>
                     {spec}
@@ -196,15 +193,25 @@ export function Terminal({ language }: TerminalProps) {
             <div className="font-bold text-blue-400 mb-1">{language === 'es' ? 'Prueba de Latencia' : 'Latency Test'}</div>
             <div className="ml-2">
               <div className="text-blue-400">{language === 'es' ? 'Realizando ping...' : 'Performing ping test...'}</div>
-              <div>zenoscale.es: 8ms</div>
-              <div>google.com: 15ms</div>
-              <div>aws-eu-west: 22ms</div>
-              <div>cloudflare: 5ms</div>
-              <div className="text-blue-400 mt-1">
-                {language === 'es' 
-                  ? 'Promedio: 12.5ms' 
-                  : 'Average: 12.5ms'
-                }
+              <div className="ping-results">
+                {pingInProgress ? (
+                  <div className="animate-pulse">
+                    <div>{language === 'es' ? 'Probando conexión...' : 'Testing connection...'}</div>
+                  </div>
+                ) : (
+                  <>
+                    <div>fi1.zenoscale.es: 8ms</div>
+                    <div>dash.zenoscale.es: 12ms</div>
+                    <div>google.com: 15ms</div>
+                    <div>cloudflare.com: 5ms</div>
+                    <div className="text-blue-400 mt-1">
+                      {language === 'es' 
+                        ? 'Promedio: 10ms' 
+                        : 'Average: 10ms'
+                      }
+                    </div>
+                  </>
+                )}
               </div>
             </div>
           </div>
@@ -217,6 +224,13 @@ export function Terminal({ language }: TerminalProps) {
         return null;
       },
     },
+  };
+
+  const simulatePing = () => {
+    setPingInProgress(true);
+    setTimeout(() => {
+      setPingInProgress(false);
+    }, 1000);
   };
 
   const handleCommand = (e: React.FormEvent) => {
@@ -246,6 +260,11 @@ export function Terminal({ language }: TerminalProps) {
       // Find the command in our commands object
       const commandName = trimmedInput.split(" ")[0];
       const command = commands[commandName as keyof typeof commands];
+      
+      // Special case for ping command to simulate real ping
+      if (commandName === "ping") {
+        simulatePing();
+      }
       
       // Execute the command if it exists
       const output = command
@@ -315,7 +334,7 @@ export function Terminal({ language }: TerminalProps) {
           <div key={index} className="mb-2">
             {item.command && (
               <div className="flex items-center text-white mb-1">
-                <span className="text-blue-400 mr-2">root@zenohost:~$</span>
+                <span className="text-blue-400 mr-2">root@zenoscale:~$</span>
                 <span>{item.command}</span>
               </div>
             )}
@@ -328,7 +347,7 @@ export function Terminal({ language }: TerminalProps) {
           </div>
         ))}
         <form onSubmit={handleCommand} className="flex items-center mt-1 text-white">
-          <span className="text-blue-400 mr-2">root@zenohost:~$</span>
+          <span className="text-blue-400 mr-2">root@zenoscale:~$</span>
           <input
             ref={inputRef}
             type="text"
@@ -343,9 +362,9 @@ export function Terminal({ language }: TerminalProps) {
       
       {/* Terminal footer */}
       <div className="bg-zinc-900 px-4 py-1 flex justify-between items-center text-xs text-zinc-500 font-mono">
-        <span>Inactivo</span>
-        <span>Terminal v1.0</span>
-        <span>1 cmd(s)</span>
+        <span>ZenoScale</span>
+        <span>VPS Terminal v1.2</span>
+        <span>{history.length - 1} cmd(s)</span>
       </div>
     </div>
   );

@@ -75,7 +75,7 @@ export function TerminalSection({ language }: TerminalSectionProps) {
           </div>
           
           <div className="order-1 md:order-2 space-y-8">
-            <div className="bg-black/30 p-6 rounded-lg border border-zinc-800 backdrop-blur-sm">
+            <div className="bg-black/30 p-6 rounded-lg border border-blue-900/50 backdrop-blur-sm">
               <h3 className="flex items-start text-xl font-semibold mb-2 text-blue-400">
                 <span className="text-blue-500 mr-2">🔒</span>
                 {secureAccess}
@@ -85,7 +85,7 @@ export function TerminalSection({ language }: TerminalSectionProps) {
               </p>
             </div>
             
-            <div className="bg-black/30 p-6 rounded-lg border border-zinc-800 backdrop-blur-sm">
+            <div className="bg-black/30 p-6 rounded-lg border border-blue-900/50 backdrop-blur-sm">
               <h3 className="flex items-start text-xl font-semibold mb-2 text-blue-400">
                 <span className="text-blue-500 mr-2">⚙️</span>
                 {rootPrivileges}
@@ -95,7 +95,7 @@ export function TerminalSection({ language }: TerminalSectionProps) {
               </p>
             </div>
             
-            <div className="bg-black/30 p-6 rounded-lg border border-zinc-800 backdrop-blur-sm">
+            <div className="bg-black/30 p-6 rounded-lg border border-blue-900/50 backdrop-blur-sm">
               <h3 className="flex items-start text-xl font-semibold mb-2 text-blue-400">
                 <span className="text-blue-500 mr-2">💻</span>
                 {commandLinePower}
