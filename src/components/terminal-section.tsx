@@ -1,5 +1,5 @@
 
-import React, { useRef, useEffect } from "react";
+import React from "react";
 import { Terminal } from "@/components/ui/terminal";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -34,8 +34,6 @@ export function TerminalSection({ language }: TerminalSectionProps) {
     }
   };
 
-  const terminalRef = useRef<HTMLDivElement>(null);
-  
   // Make sure language is 'es' or 'en', with 'es' as default
   const validLanguage = language && (language === 'en' || language === 'es') ? language : 'es';
   const { 
@@ -49,27 +47,6 @@ export function TerminalSection({ language }: TerminalSectionProps) {
     commandLinePower,
     commandLinePowerDesc
   } = content[validLanguage];
-
-  // Animation when scrolling to this section
-  useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting && terminalRef.current) {
-          terminalRef.current.classList.add('terminal-animate');
-        }
-      });
-    }, { threshold: 0.2 });
-    
-    if (terminalRef.current) {
-      observer.observe(terminalRef.current);
-    }
-    
-    return () => {
-      if (terminalRef.current) {
-        observer.unobserve(terminalRef.current);
-      }
-    };
-  }, []);
 
   return (
     <section className="py-16 md:py-24 lg:py-28 relative overflow-hidden scroll-reveal">
@@ -93,7 +70,7 @@ export function TerminalSection({ language }: TerminalSectionProps) {
         </div>
 
         <div className="grid md:grid-cols-2 gap-10 items-center">
-          <div ref={terminalRef} className="order-2 md:order-1 flex justify-center terminal-container opacity-0 translate-y-10 transition-all duration-700">
+          <div className="order-2 md:order-1 flex justify-center">
             <Terminal language={validLanguage} />
           </div>
           
