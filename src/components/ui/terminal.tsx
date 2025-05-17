@@ -1,6 +1,7 @@
+
 import React, { useState, useRef, useEffect } from "react";
 import { cn } from "@/lib/utils";
-import { Terminal as TerminalIcon, System, ArrowRight, Clear, Ping } from "lucide-react";
+import { Terminal as TerminalIcon, Server, X, Command, Cpu } from "lucide-react";
 
 interface TerminalProps {
   language: string;
@@ -18,7 +19,7 @@ export function Terminal({ language }: TerminalProps) {
     {
       command: "",
       output: (
-        <div className="text-green-400">
+        <div className="text-blue-400">
           {language === 'es' ? 
             'Bienvenido a la terminal ZenoHost VPS. Escribe \'help\' para ver los comandos disponibles.' : 
             'Welcome to ZenoHost VPS terminal. Type \'help\' to see available commands.'}
@@ -53,26 +54,26 @@ export function Terminal({ language }: TerminalProps) {
       execute: () => {
         return (
           <div className="text-white">
-            <div className="font-bold text-yellow-400 mb-1">{language === 'es' ? 'Comandos disponibles:' : 'Available commands:'}</div>
+            <div className="font-bold text-blue-400 mb-1">{language === 'es' ? 'Comandos disponibles:' : 'Available commands:'}</div>
             <div className="ml-2">
               <div className="flex items-start">
-                <span className="text-cyan-400 font-mono w-16">system</span>
+                <span className="text-blue-400 font-mono w-16">system</span>
                 <span>{language === 'es' ? 'Mostrar información del sistema' : 'Display system information'}</span>
               </div>
               <div className="flex items-start">
-                <span className="text-cyan-400 font-mono w-16">specs</span>
+                <span className="text-blue-400 font-mono w-16">specs</span>
                 <span>{language === 'es' ? 'Mostrar especificaciones VPS' : 'Show VPS specifications'}</span>
               </div>
               <div className="flex items-start">
-                <span className="text-cyan-400 font-mono w-16">uptime</span>
+                <span className="text-blue-400 font-mono w-16">uptime</span>
                 <span>{language === 'es' ? 'Mostrar tiempo de actividad del servidor' : 'Display server uptime'}</span>
               </div>
               <div className="flex items-start">
-                <span className="text-cyan-400 font-mono w-16">ping</span>
+                <span className="text-blue-400 font-mono w-16">ping</span>
                 <span>{language === 'es' ? 'Probar latencia de conexión' : 'Test connection latency'}</span>
               </div>
               <div className="flex items-start">
-                <span className="text-cyan-400 font-mono w-16">clear</span>
+                <span className="text-blue-400 font-mono w-16">clear</span>
                 <span>{language === 'es' ? 'Limpiar pantalla de terminal' : 'Clear terminal screen'}</span>
               </div>
             </div>
@@ -84,13 +85,13 @@ export function Terminal({ language }: TerminalProps) {
       execute: () => {
         return (
           <div className="text-white">
-            <div className="font-bold text-yellow-400 mb-1">ZenoScale System Info</div>
+            <div className="font-bold text-blue-400 mb-1">ZenoScale System Info</div>
             <div className="ml-2">
               <div>{language === 'es' ? 'Sistema operativo: Linux ZenoScale 5.15' : 'Operating System: Linux ZenoScale 5.15'}</div>
               <div>{language === 'es' ? 'Kernel: 5.15.0-zenohost' : 'Kernel: 5.15.0-zenohost'}</div>
               <div>{language === 'es' ? 'Arquitectura: x86_64' : 'Architecture: x86_64'}</div>
               <div>{language === 'es' ? 'Virtualización: KVM' : 'Virtualization: KVM'}</div>
-              <div>{language === 'es' ? 'CPU: Intel Xeon' : 'CPU: Intel Xeon'}</div>
+              <div>{language === 'es' ? 'CPU: AMD Ryzen 9' : 'CPU: AMD Ryzen 9'}</div>
             </div>
           </div>
         );
@@ -98,15 +99,63 @@ export function Terminal({ language }: TerminalProps) {
     },
     specs: {
       execute: () => {
+        const logo = language === 'es' ? 
+          [
+            "    ███████╗███████╗███╗   ██╗ ██████╗     ",
+            "    ╚══███╔╝██╔════╝████╗  ██║██╔═══██╗    ",
+            "      ███╔╝ █████╗  ██╔██╗ ██║██║   ██║    ",
+            "     ███╔╝  ██╔══╝  ██║╚██╗██║██║   ██║    ",
+            "    ███████╗███████╗██║ ╚████║╚██████╔╝    ", 
+            "    ╚══════╝╚══════╝╚═╝  ╚═══╝ ╚═════╝     "
+          ] :
+          [
+            "    ███████╗███████╗███╗   ██╗ ██████╗     ",
+            "    ╚══███╔╝██╔════╝████╗  ██║██╔═══██╗    ",
+            "      ███╔╝ █████╗  ██╔██╗ ██║██║   ██║    ",
+            "     ███╔╝  ██╔══╝  ██║╚██╗██║██║   ██║    ",
+            "    ███████╗███████╗██║ ╚████║╚██████╔╝    ", 
+            "    ╚══════╝╚══════╝╚═╝  ╚═══╝ ╚═════╝     "
+          ];
+
+        const specs = [
+          `${language === 'es' ? 'Host: ZenoScale VPS' : 'Host: ZenoScale VPS'}`,
+          `${language === 'es' ? 'CPU: AMD Ryzen 9 5950X (16C/32T)' : 'CPU: AMD Ryzen 9 5950X (16C/32T)'}`,
+          `${language === 'es' ? 'RAM: 64GB DDR4 3600MHz' : 'RAM: 64GB DDR4 3600MHz'}`,
+          `${language === 'es' ? 'Disco: 1TB NVMe SSD' : 'Disk: 1TB NVMe SSD'}`,
+          `${language === 'es' ? 'Red: 10Gbps, Sin límites' : 'Network: 10Gbps, Unlimited'}`,
+          `${language === 'es' ? 'Uptime: 99.99% garantizado' : 'Uptime: 99.99% guaranteed'}`,
+          `${language === 'es' ? 'Protección: DDoS avanzada' : 'Protection: Advanced DDoS'}`,
+          `${language === 'es' ? 'Sistema: ZenoScale Linux 5.15.0' : 'System: ZenoScale Linux 5.15.0'}`
+        ];
+
+        // Alternate version with Intel Xeon
+        const xeonSpecs = [
+          `${language === 'es' ? 'Host: ZenoScale VPS' : 'Host: ZenoScale VPS'}`,
+          `${language === 'es' ? 'CPU: Intel Xeon E5-2699 v4 (22C/44T)' : 'CPU: Intel Xeon E5-2699 v4 (22C/44T)'}`,
+          `${language === 'es' ? 'RAM: 128GB DDR4 ECC' : 'RAM: 128GB DDR4 ECC'}`,
+          `${language === 'es' ? 'Disco: 2TB NVMe SSD' : 'Disk: 2TB NVMe SSD'}`,
+          `${language === 'es' ? 'Red: 10Gbps, Sin límites' : 'Network: 10Gbps, Unlimited'}`,
+          `${language === 'es' ? 'Uptime: 99.99% garantizado' : 'Uptime: 99.99% guaranteed'}`,
+          `${language === 'es' ? 'Protección: DDoS avanzada' : 'Protection: Advanced DDoS'}`,
+          `${language === 'es' ? 'Sistema: ZenoScale Linux 5.15.0' : 'System: ZenoScale Linux 5.15.0'}`
+        ];
+
+        // Choose AMD Ryzen or Intel Xeon randomly (50/50)
+        const selectedSpecs = Math.random() > 0.5 ? specs : xeonSpecs;
+        
         return (
-          <div className="text-white">
-            <div className="font-bold text-yellow-400 mb-1">{language === 'es' ? 'Especificaciones del VPS' : 'VPS Specifications'}</div>
-            <div className="ml-2">
-              <div>{language === 'es' ? 'CPU: 4 núcleos, 3.1GHz' : 'CPU: 4 cores, 3.1GHz'}</div>
-              <div>{language === 'es' ? 'RAM: 8GB DDR4' : 'RAM: 8GB DDR4'}</div>
-              <div>{language === 'es' ? 'Almacenamiento: 100GB SSD NVMe' : 'Storage: 100GB SSD NVMe'}</div>
-              <div>{language === 'es' ? 'Red: 1Gbps, tráfico ilimitado' : 'Network: 1Gbps, unlimited traffic'}</div>
-              <div>{language === 'es' ? 'Protección DDoS: Incluida' : 'DDoS Protection: Included'}</div>
+          <div className="text-white font-mono">
+            <div className="flex">
+              <div className="text-blue-400 mr-8">
+                {logo.map((line, i) => <div key={i}>{line}</div>)}
+              </div>
+              <div className="flex flex-col justify-center">
+                {selectedSpecs.map((spec, i) => (
+                  <div key={i} className={i === 0 ? "text-blue-400 font-bold" : ""}>
+                    {spec}
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         );
@@ -121,7 +170,7 @@ export function Terminal({ language }: TerminalProps) {
         
         return (
           <div className="text-white">
-            <div className="font-bold text-yellow-400 mb-1">{language === 'es' ? 'Tiempo de actividad del servidor' : 'Server Uptime'}</div>
+            <div className="font-bold text-blue-400 mb-1">{language === 'es' ? 'Tiempo de actividad del servidor' : 'Server Uptime'}</div>
             <div className="ml-2">
               <div>
                 {language === 'es' 
@@ -129,7 +178,7 @@ export function Terminal({ language }: TerminalProps) {
                   : `${days} days, ${hours} hours, ${mins} minutes`
                 }
               </div>
-              <div className="text-green-400">
+              <div className="text-blue-400">
                 {language === 'es' 
                   ? 'Disponibilidad: 99.99%' 
                   : 'Availability: 99.99%'
@@ -144,14 +193,14 @@ export function Terminal({ language }: TerminalProps) {
       execute: () => {
         return (
           <div className="text-white">
-            <div className="font-bold text-yellow-400 mb-1">{language === 'es' ? 'Prueba de Latencia' : 'Latency Test'}</div>
+            <div className="font-bold text-blue-400 mb-1">{language === 'es' ? 'Prueba de Latencia' : 'Latency Test'}</div>
             <div className="ml-2">
-              <div className="text-green-400">{language === 'es' ? 'Realizando ping...' : 'Performing ping test...'}</div>
+              <div className="text-blue-400">{language === 'es' ? 'Realizando ping...' : 'Performing ping test...'}</div>
               <div>zenoscale.es: 8ms</div>
               <div>google.com: 15ms</div>
               <div>aws-eu-west: 22ms</div>
               <div>cloudflare: 5ms</div>
-              <div className="text-green-400 mt-1">
+              <div className="text-blue-400 mt-1">
                 {language === 'es' 
                   ? 'Promedio: 12.5ms' 
                   : 'Average: 12.5ms'
@@ -186,7 +235,7 @@ export function Terminal({ language }: TerminalProps) {
       newHistory = [{
         command: "",
         output: (
-          <div className="text-green-400">
+          <div className="text-blue-400">
             {language === 'es' 
               ? 'Terminal limpiada. Escribe \'help\' para ver los comandos disponibles.' 
               : 'Terminal cleared. Type \'help\' to see available commands.'}
@@ -247,13 +296,13 @@ export function Terminal({ language }: TerminalProps) {
       {/* Terminal header */}
       <div className="bg-zinc-900 px-4 py-2 flex items-center justify-between">
         <div className="flex items-center text-white space-x-2">
-          <TerminalIcon className="h-4 w-4 text-red-500" />
+          <TerminalIcon className="h-4 w-4 text-blue-500" />
           <span className="text-sm font-mono">Terminal</span>
         </div>
         <div className="flex space-x-1.5">
           <div className="w-3 h-3 rounded-full bg-red-500"></div>
           <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-          <div className="w-3 h-3 rounded-full bg-green-500"></div>
+          <div className="w-3 h-3 rounded-full bg-blue-500"></div>
         </div>
       </div>
       
@@ -266,7 +315,7 @@ export function Terminal({ language }: TerminalProps) {
           <div key={index} className="mb-2">
             {item.command && (
               <div className="flex items-center text-white mb-1">
-                <span className="text-green-400 mr-2">root@zenohost:~$</span>
+                <span className="text-blue-400 mr-2">root@zenohost:~$</span>
                 <span>{item.command}</span>
               </div>
             )}
@@ -279,7 +328,7 @@ export function Terminal({ language }: TerminalProps) {
           </div>
         ))}
         <form onSubmit={handleCommand} className="flex items-center mt-1 text-white">
-          <span className="text-green-400 mr-2">root@zenohost:~$</span>
+          <span className="text-blue-400 mr-2">root@zenohost:~$</span>
           <input
             ref={inputRef}
             type="text"

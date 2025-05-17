@@ -61,7 +61,7 @@ export function TerminalSection({ language }: TerminalSectionProps) {
           <div className="mt-6">
             <Button 
               variant="outline" 
-              className="border-red-500 text-red-500 hover:bg-red-950/20 transition-all space-x-2"
+              className="border-blue-500 text-blue-500 hover:bg-blue-950/20 transition-all space-x-2"
             >
               <span>{accessButton}</span>
               <ArrowRight size={16} />
@@ -76,8 +76,8 @@ export function TerminalSection({ language }: TerminalSectionProps) {
           
           <div className="order-1 md:order-2 space-y-8">
             <div className="bg-black/30 p-6 rounded-lg border border-zinc-800 backdrop-blur-sm">
-              <h3 className="flex items-center text-xl font-semibold mb-2 text-red-400">
-                <span className="text-red-500 mr-2">🔒</span>
+              <h3 className="flex items-start text-xl font-semibold mb-2 text-blue-400">
+                <span className="text-blue-500 mr-2">🔒</span>
                 {secureAccess}
               </h3>
               <p className="text-zinc-300">
@@ -86,8 +86,8 @@ export function TerminalSection({ language }: TerminalSectionProps) {
             </div>
             
             <div className="bg-black/30 p-6 rounded-lg border border-zinc-800 backdrop-blur-sm">
-              <h3 className="flex items-center text-xl font-semibold mb-2 text-red-400">
-                <span className="text-red-500 mr-2">⚙️</span>
+              <h3 className="flex items-start text-xl font-semibold mb-2 text-blue-400">
+                <span className="text-blue-500 mr-2">⚙️</span>
                 {rootPrivileges}
               </h3>
               <p className="text-zinc-300">
@@ -96,8 +96,8 @@ export function TerminalSection({ language }: TerminalSectionProps) {
             </div>
             
             <div className="bg-black/30 p-6 rounded-lg border border-zinc-800 backdrop-blur-sm">
-              <h3 className="flex items-center text-xl font-semibold mb-2 text-red-400">
-                <span className="text-red-500 mr-2">💻</span>
+              <h3 className="flex items-start text-xl font-semibold mb-2 text-blue-400">
+                <span className="text-blue-500 mr-2">💻</span>
                 {commandLinePower}
               </h3>
               <p className="text-zinc-300">
