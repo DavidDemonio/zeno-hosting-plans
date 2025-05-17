@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { cn } from '@/lib/utils';
 
 interface StarsBackgroundProps {
@@ -8,18 +8,11 @@ interface StarsBackgroundProps {
 }
 
 export function StarsBackground({ className, density = 150 }: StarsBackgroundProps) {
-  const [stars, setStars] = useState<Array<{ 
-    id: number; 
-    size: number; 
-    top: string; 
-    left: string; 
-    delay: number; 
-    brightness: number;
-    blinkSpeed: number;
-  }>>([]);
-
-  useEffect(() => {
-    const newStars = Array.from({ length: density }, (_, i) => {
+  const [mounted, setMounted] = useState(false);
+  
+  // Create stars only once and memoize them
+  const stars = useMemo(() => {
+    return Array.from({ length: density }, (_, i) => {
       const size = Math.random() * 2 + 0.8; // Smaller stars
       const brightness = Math.random() * 0.7 + 0.3;
       const blinkSpeed = Math.random() * 4 + 2; // Random blink speed between 2-6s
@@ -34,17 +27,23 @@ export function StarsBackground({ className, density = 150 }: StarsBackgroundPro
         blinkSpeed
       };
     });
-    setStars(newStars);
   }, [density]);
+  
+  useEffect(() => {
+    setMounted(true);
+    return () => setMounted(false);
+  }, []);
 
-  // Create CSS animation for twinkling stars
+  // Create CSS animation for twinkling stars - moved outside of render for performance
   const twinkleAnimation = `
     @keyframes twinkle {
-      0% { opacity: ${Math.random() * 0.3 + 0.3}; }
-      50% { opacity: ${Math.random() * 0.6 + 0.4}; }
-      100% { opacity: ${Math.random() * 0.3 + 0.3}; }
+      0% { opacity: 0.3; }
+      50% { opacity: 0.8; }
+      100% { opacity: 0.3; }
     }
   `;
+
+  if (!mounted) return null;
 
   return (
     <div className={cn('fixed inset-0 z-0 overflow-hidden pointer-events-none bg-gradient-to-b from-[#050a12] via-[#070c14] to-[#0a0f18]', className)}>

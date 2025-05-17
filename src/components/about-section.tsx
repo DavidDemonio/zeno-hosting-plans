@@ -1,4 +1,5 @@
 
+import React from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Users } from "lucide-react";
 import { useNavigate } from "react-router-dom";
@@ -53,15 +54,22 @@ export function AboutSection({ language }: AboutSectionProps) {
     navigate("/about");
   };
 
+  // Animation variants
+  const fadeIn = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
+  };
+
   return (
     <section id="about" className="py-16 lg:py-24 relative">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <motion.div 
             className="relative z-10"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={fadeIn}
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-6">
               {title} <span className="gradient-text glow-text">{highlight}</span>
@@ -92,9 +100,11 @@ export function AboutSection({ language }: AboutSectionProps) {
           
           <motion.div 
             className="relative z-10"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={fadeIn}
+            transition={{ delay: 0.2 }}
           >
             <div className="bg-zinc-800/30 backdrop-blur-sm rounded-lg border border-zinc-700 p-8">
               <h3 className="font-semibold text-xl mb-4 gradient-text">{values}</h3>
@@ -104,7 +114,8 @@ export function AboutSection({ language }: AboutSectionProps) {
                     key={index} 
                     className="flex items-start"
                     initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
                     transition={{ delay: 0.1 * index, duration: 0.4 }}
                   >
                     <span className="inline-flex items-center justify-center flex-shrink-0 w-6 h-6 mr-3 rounded-full bg-zeno-purple/20 text-zeno-purple">
@@ -118,8 +129,7 @@ export function AboutSection({ language }: AboutSectionProps) {
               </ul>
               
               <div className="mt-6 text-right">
-                <motion.a 
-                  href="#" 
+                <motion.button
                   onClick={(e) => {
                     e.preventDefault();
                     handleLearnMoreClick();
@@ -130,7 +140,7 @@ export function AboutSection({ language }: AboutSectionProps) {
                 >
                   {learnMore}
                   <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
-                </motion.a>
+                </motion.button>
               </div>
             </div>
           </motion.div>
