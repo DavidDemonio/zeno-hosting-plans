@@ -6,7 +6,7 @@ import { FeaturesSection } from "@/components/features-section";
 import { PricingSection } from "@/components/pricing-section";
 import { CTASection } from "@/components/cta-section";
 import { Footer } from "@/components/footer";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useLayoutEffect } from "react";
 import { AboutSection } from "@/components/about-section";
 import { PanelShowcase } from "@/components/panel-showcase";
 import { TerminalSection } from "@/components/terminal-section";
@@ -15,6 +15,11 @@ const Index = () => {
   const [shootingStars, setShootingStars] = useState<{ id: number, delay: number, duration: number, top: string, offset: number }[]>([]);
   const [loading, setLoading] = useState(true);
   const [language, setLanguage] = useState('es');
+  
+  // Force scroll to top on first render (before any other effects)
+  useLayoutEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   
   // Initial loading animation
   useEffect(() => {
@@ -49,9 +54,6 @@ const Index = () => {
     };
     
     window.addEventListener('scroll', handleScroll);
-    
-    // Reset scroll position to top on page load
-    window.scrollTo(0, 0);
     
     // Trigger once on load
     setTimeout(handleScroll, 500);

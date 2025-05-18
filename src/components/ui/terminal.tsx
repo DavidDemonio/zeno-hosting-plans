@@ -15,23 +15,27 @@ interface CommandOutput {
 
 export function Terminal({ language }: TerminalProps) {
   const [input, setInput] = useState("");
-  const [history, setHistory] = useState<CommandOutput[]>([
-    {
-      command: "",
-      output: (
-        <div className="text-blue-400">
-          {language === 'es' ? 
-            'Bienvenido a la terminal ZenoScale VPS. Escribe \'help\' para ver los comandos disponibles.' : 
-            'Welcome to ZenoScale VPS terminal. Type \'help\' to see available commands.'}
-        </div>
-      ),
-    },
-  ]);
+  const [history, setHistory] = useState<CommandOutput[]>([]);
   const [commandHistory, setCommandHistory] = useState<string[]>([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
   const [pingInProgress, setPingInProgress] = useState(false);
   const terminalRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  
+  // Refresh history when language changes
+  useEffect(() => {
+    // Reset history with welcome message in selected language
+    setHistory([{
+      command: "",
+      output: (
+        <div className="text-blue-400">
+          {language === 'es' 
+            ? 'Bienvenido a la terminal ZenoScale VPS. Escribe \'help\' para ver los comandos disponibles.' 
+            : 'Welcome to ZenoScale VPS terminal. Type \'help\' to see available commands.'}
+        </div>
+      ),
+    }]);
+  }, [language]);
 
   useEffect(() => {
     if (terminalRef.current) {

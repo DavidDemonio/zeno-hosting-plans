@@ -47,7 +47,7 @@ export function HeroSection({ language }: HeroSectionProps) {
         </div>
         
         <div className="overflow-visible mb-8">
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight stagger-animation stagger-2 text-center">
+          <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold leading-tight stagger-animation stagger-2 text-center">
             <span className="text-white">{title}</span>
           </h1>
         </div>
