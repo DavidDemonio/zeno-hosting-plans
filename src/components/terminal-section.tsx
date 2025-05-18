@@ -1,5 +1,5 @@
 
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Terminal } from "@/components/ui/terminal";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -9,6 +9,36 @@ interface TerminalSectionProps {
 }
 
 export function TerminalSection({ language }: TerminalSectionProps) {
+  const [isVisible, setIsVisible] = useState(false);
+  const terminalRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const [entry] = entries;
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect(); // Stop observing once visible
+        }
+      },
+      {
+        root: null,
+        rootMargin: "0px",
+        threshold: 0.3, // 30% of the element is visible
+      }
+    );
+
+    if (terminalRef.current) {
+      observer.observe(terminalRef.current);
+    }
+
+    return () => {
+      if (terminalRef.current) {
+        observer.unobserve(terminalRef.current);
+      }
+    };
+  }, []);
+
   const content = {
     es: {
       title: "Acceso completo de root",
@@ -70,7 +100,14 @@ export function TerminalSection({ language }: TerminalSectionProps) {
         </div>
 
         <div className="grid md:grid-cols-2 gap-10 items-center">
-          <div className="order-2 md:order-1 flex justify-center">
+          <div 
+            ref={terminalRef}
+            className={`order-2 md:order-1 flex justify-center transition-all duration-700 ${
+              isVisible 
+                ? "opacity-100 translate-y-0" 
+                : "opacity-0 translate-y-20"
+            }`}
+          >
             <Terminal language={validLanguage} />
           </div>
           

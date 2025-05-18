@@ -125,10 +125,10 @@ export function Terminal({ language }: TerminalProps) {
           `${language === 'es' ? 'Sistema: ZenoScale Linux 5.15.0' : 'System: ZenoScale Linux 5.15.0'}`
         ];
 
-        // Alternate version with Intel Xeon
+        // Updated Xeon specs with the specific model requested
         const xeonSpecs = [
           `${language === 'es' ? 'Host: ZenoScale VPS' : 'Host: ZenoScale VPS'}`,
-          `${language === 'es' ? 'CPU: Intel Xeon E5-2699 v4 (22C/44T)' : 'CPU: Intel Xeon E5-2699 v4 (22C/44T)'}`,
+          `${language === 'es' ? 'CPU: Intel Xeon E-2276G (12) @ 4.900GHz' : 'CPU: Intel Xeon E-2276G (12) @ 4.900GHz'}`,
           `${language === 'es' ? 'RAM: 128GB DDR4 ECC' : 'RAM: 128GB DDR4 ECC'}`,
           `${language === 'es' ? 'Disco: 2TB NVMe SSD' : 'Disk: 2TB NVMe SSD'}`,
           `${language === 'es' ? 'Red: 10Gbps, Sin límites' : 'Network: 10Gbps, Unlimited'}`,

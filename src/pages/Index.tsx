@@ -49,6 +49,10 @@ const Index = () => {
     };
     
     window.addEventListener('scroll', handleScroll);
+    
+    // Reset scroll position to top on page load
+    window.scrollTo(0, 0);
+    
     // Trigger once on load
     setTimeout(handleScroll, 500);
     
