@@ -6,7 +6,7 @@ import { FeaturesSection } from "@/components/features-section";
 import { PricingSection } from "@/components/pricing-section";
 import { CTASection } from "@/components/cta-section";
 import { Footer } from "@/components/footer";
-import { useEffect, useState, useLayoutEffect } from "react";
+import { useEffect, useState, useLayoutEffect, useRef } from "react";
 import { AboutSection } from "@/components/about-section";
 import { PanelShowcase } from "@/components/panel-showcase";
 import { TerminalSection } from "@/components/terminal-section";
@@ -19,6 +19,16 @@ const Index = () => {
   // Force scroll to top on first render (before any other effects)
   useLayoutEffect(() => {
     window.scrollTo(0, 0);
+    
+    // This delays any hash-based scrolling until after initial render
+    setTimeout(() => {
+      if (window.location.hash === '#terminal-section') {
+        const element = document.getElementById('terminal-section');
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    }, 100);
   }, []);
   
   // Initial loading animation
